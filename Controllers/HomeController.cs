@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -28,10 +29,20 @@ namespace CircuitSharp.Controllers
             return View();
         }
 
+        public IActionResult Editor()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        protected void btnRedirect_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Editor.cshtml");
         }
     }
 }
