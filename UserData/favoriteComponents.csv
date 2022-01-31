@@ -1,3 +1,4 @@
+# Lines starting with a # will be ignored
 #Name,Value,Code
 Resistor,None,None
 Capacitor,None,None

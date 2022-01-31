@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\UserData",
+    "\\Util",
+    "\\Util\\CSV",
+    "\\Views",
+    "\\Views\\Home",
+    "\\wwwroot\\css",
+    "\\wwwroot\\js"
+  ],
+  "SelectedNode": "\\Util\\CSV\\CSVDeserializer.cs",
+  "PreviewInSolutionExplorer": false
+}
