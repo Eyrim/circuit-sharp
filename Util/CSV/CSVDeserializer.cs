@@ -21,7 +21,32 @@ namespace CircuitSharp.Util.CSV
                 }
             }
 
-            return csvUpdated;
+
+            return ListToCSV(csvUpdated);
+        }
+
+        public static CSV ListToCSV(List<string> data)
+        {
+            CSVRecord[] records = new CSVRecord[3]
+            {
+                new CSVRecord(CSVEnum.Name, data[0]),
+                new CSVRecord(CSVEnum.Value, data[1]),
+                new CSVRecord(CSVEnum.Code, data[2])
+            };
+
+            return new CSV(records);
+        }
+
+        public static CSV ArrayToCSV(string[] data)
+        {
+            CSVRecord[] records = new CSVRecord[3]
+            {
+                new CSVRecord(CSVEnum.Name, data[0]),
+                new CSVRecord(CSVEnum.Value, data[1]),
+                new CSVRecord(CSVEnum.Code, data[2])
+            };
+
+            return new CSV(records);
         }
     }
 }
