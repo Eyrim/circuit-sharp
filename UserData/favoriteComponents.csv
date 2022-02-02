@@ -1,5 +1,6 @@
 # Lines starting with a # will be ignored
-#Name,Value,Code
+# Lines starting with a @ are treated as header
+@Name,Value,Code
 Resistor,None,None
 Capacitor,None,None
 Wire,None,None

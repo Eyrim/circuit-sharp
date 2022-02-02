@@ -5,10 +5,8 @@
     "\\Util",
     "\\Util\\CSV",
     "\\Views",
-    "\\Views\\Home",
-    "\\wwwroot\\css",
-    "\\wwwroot\\js"
+    "\\Views\\Home"
   ],
-  "SelectedNode": "\\Util\\CSV\\CSVDeserializer.cs",
+  "SelectedNode": "\\Util\\CSV\\CSVRecord.cs",
   "PreviewInSolutionExplorer": false
 }

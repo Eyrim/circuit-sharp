@@ -1,52 +1,61 @@
+﻿using System;
 using System.Collections.Generic;
 
 namespace CircuitSharp.Util.CSV
 {
     public static class CSVDeserializer
     {
-        public static List<string> Deserialize(string filePath)
+        public static CSVFile<string> Deserialize(string filePath)
         {
             List<string> csv = FileHandling.ReadFile(filePath);
             List<string> csvUpdated = new List<string>();
+            List<string> orderOfValues = new List<string>();
+            List<string> splitLine = null;
             string line = "";
+            string item = "";
 
+            // For every line in the CSV file
             for (int i = 0; i < csv.Count; i++)
             {
+                // The current line
                 line = csv[i];
+                // The current line split on every comma
+                splitLine = new List<string>(line.Split(","));
 
-                // Header line starts with #
-                if (line[0] != '#')
+                // For the number of elements in the current line
+                for (int j = 0; j < splitLine.Count; j++)
                 {
-                    csvUpdated.Add(line);
+                    item = splitLine[j];
+
+                    // If the current element is a comment, ignore it
+                    if (item[0] == '#')
+                    {
+                        continue;
+                    }
+
+                    // If the current element is a header 
+                    else if (item[0] == '@')
+                    {
+                        orderOfValues.Add(line.Replace('@', ' '));
+                        continue;
+                    }
+
+                    // If the current element isn't a comma, add it to the new list
+                    else
+                    {
+                        csvUpdated.Add(item);
+                    }
                 }
             }
 
-
-            return ListToCSV(csvUpdated);
-        }
-
-        public static CSV ListToCSV(List<string> data)
-        {
-            CSVRecord[] records = new CSVRecord[3]
-            {
-                new CSVRecord(CSVEnum.Name, data[0]),
-                new CSVRecord(CSVEnum.Value, data[1]),
-                new CSVRecord(CSVEnum.Code, data[2])
-            };
-
-            return new CSV(records);
-        }
-
-        public static CSV ArrayToCSV(string[] data)
-        {
-            CSVRecord[] records = new CSVRecord[3]
-            {
-                new CSVRecord(CSVEnum.Name, data[0]),
-                new CSVRecord(CSVEnum.Value, data[1]),
-                new CSVRecord(CSVEnum.Code, data[2])
-            };
-
-            return new CSV(records);
+            return new CSVFile<string>();
         }
     }
 }
+/*
+NIC
+UTP
+Switch
+Router
+Fibre
+ */

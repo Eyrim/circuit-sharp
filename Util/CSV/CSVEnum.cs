@@ -1,6 +1,8 @@
+﻿using System;
+
 namespace CircuitSharp.Util.CSV
 {
-    enum CSVEnum
+    public enum CSVEnum
     {
         Name,
         Value,
