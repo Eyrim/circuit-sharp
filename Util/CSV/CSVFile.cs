@@ -4,7 +4,7 @@ namespace CircuitSharp.Util.CSV
 {
     public class CSVFile<T>
     {
-        Dictionary<CSVEnum, T> Records;
+        List<KeyValuePair<CSVEnum, T>> Records;
 
         /// <summary>
         /// Default constructor for CSV, initialises Records to be null
@@ -17,24 +17,19 @@ namespace CircuitSharp.Util.CSV
         /// Overload for CSV Constructor to allow Records to be non-null
         /// </summary>
         /// <param name="GivenRecords">The records to assign to this.Records</param>
-        public CSVFile(Dictionary<CSVEnum, T> GivenRecords)
+        public CSVFile(List<KeyValuePair<CSVEnum, T>> GivenRecords)
         {
             //TODO: Validate
             this.Records = GivenRecords;
         }
 
         /// <summary>
-        /// Returns a record from this.Records
+        /// Returns the records
         /// </summary>
-        /// <param name="CSVColumn">The CSVEnum column to return the value of</param>
-        /// <returns>Value in Records dict corresponding to the key requested</returns>
-        public T GetRecord(CSVEnum CSVColumn)
+        /// <returns>The List<KeyValuePair<CSVEnum, T>> of records</returns>
+        public List<KeyValuePair<CSVEnum, T>> GetRecords()
         {
-            if (this.Records.TryGetValue(CSVColumn, out T value))
-                return value;
-
-            else
-                throw new Exceptions.InvalidColumnRequestException();
+            return this.Records;
         }
     }
 }

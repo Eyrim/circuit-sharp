@@ -1,0 +1,24 @@
+﻿@model CircuitSharp.Models.EditorModel
+
+@{
+    Layout = null;
+}
+<!--
+    EDITOR INDEX PAGE
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Editor</title>
+    <link rel="import" href="Menu" />
+</head>
+<body>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>
