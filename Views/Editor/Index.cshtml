@@ -1,9 +1,6 @@
 ﻿@model CircuitSharp.Models.EditorModel
 @using CircuitSharp.Util.CSV;
 
-@{
-    Layout = null;
-}
 <!--
     EDITOR INDEX PAGE
 -->
@@ -16,13 +13,11 @@
 </head>
 <body>
 
+@{
+    
+}
+
 @{ 
-    CSVFile<string> csv = Model.GetCSVFile(@"G:\circuit-sharp2\circuit-sharp\UserData\favoriteComponents.csv");
-    KeyValuePair<CSVEnum, string> record;
-    csv.TryGetRecordByIndex(0, out record);
-    <div>
-        @record
-    </div>
 }
 
 @section Scripts {
