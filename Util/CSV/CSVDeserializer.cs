@@ -52,10 +52,3 @@ namespace CircuitSharp.Util.CSV
         }
     }
 }
-/*
-NIC
-UTP
-Switch
-Router
-Fibre
- */

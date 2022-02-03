@@ -6,6 +6,37 @@ namespace CircuitSharp.Util.CSV
     {
         List<KeyValuePair<CSVEnum, T>> Records;
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        public bool TryGetRecordByIndex(int index, out KeyValuePair<CSVEnum, T> record)
+        {
+            record = new KeyValuePair<CSVEnum, T>();
+
+            if (index >= this.Records.Count ||
+                index < 0)
+            {
+                return false;
+            }
+
+
+            record = this.Records[index];
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<KeyValuePair<CSVEnum, T>> GetRecords()
+        {
+            return this.Records;
+        }
+
         /// <summary>
         /// Default constructor for CSV, initialises Records to be null
         /// </summary>
@@ -21,15 +52,6 @@ namespace CircuitSharp.Util.CSV
         {
             //TODO: Validate
             this.Records = GivenRecords;
-        }
-
-        /// <summary>
-        /// Returns the records
-        /// </summary>
-        /// <returns>The List<KeyValuePair<CSVEnum, T>> of records</returns>
-        public List<KeyValuePair<CSVEnum, T>> GetRecords()
-        {
-            return this.Records;
         }
     }
 }
