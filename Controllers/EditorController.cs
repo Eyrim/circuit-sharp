@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CircuitSharp.Models;
 
 namespace CircuitSharp.Controllers
 {
@@ -12,7 +13,9 @@ namespace CircuitSharp.Controllers
         // GET: EditorController
         public ActionResult Index()
         {
-            return View();
+            var model = new EditorModel();
+
+            return View(model);
         }
     }
 }
