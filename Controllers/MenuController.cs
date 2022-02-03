@@ -150,7 +150,7 @@ namespace CircuitSharp.Controllers
                                         Label = "Editor",
                                         Click = () =>
                                         {
-                                            Electron.WindowManager.BrowserWindows.First().LoadURL($"http://localhopst:{BridgeSettings.WebPort}/Editor/");
+                                            Electron.WindowManager.BrowserWindows.First().LoadURL($"http://localhost:{BridgeSettings.WebPort}/Editor/");
                                         }
                                     }
                                 }
