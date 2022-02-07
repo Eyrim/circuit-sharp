@@ -10,15 +10,14 @@
     <meta name="viewport" content="width=device-width" />
     <title>Editor</title>
     <link rel="import" href="Menu" />
+    <script type="text/javascript" href="www\js\Editor\TrackMouse.js"></script>
 </head>
 <body>
-
-@{
-    
-}
-
-@{ 
-}
+<!--
+    Just use JS for active schematic area,
+    Send post to controller to amend model,
+    Ensure to avoid desync
+-->
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

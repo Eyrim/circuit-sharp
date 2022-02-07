@@ -7,6 +7,6 @@
     "\\Views",
     "\\Views\\Home"
   ],
-  "SelectedNode": "\\Util\\CSV\\CSVRecord.cs",
+  "SelectedNode": "\\Util\\CSV\\CSVDeserializer.cs",
   "PreviewInSolutionExplorer": false
 }
