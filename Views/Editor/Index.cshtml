@@ -15,6 +15,9 @@
     <title>Editor</title>
     <link rel="import" href="Menu" />
     <script type="text/javascript" src="~/js/Editor/TrackMouse.js"></script>
+    <script type="text/javascript" src="~/js/Editor/ComponentGhost.js"></script>
+    <script type="text/javascript" src="~/js/Editor/Mouse.js"></script>
+    <script data-main="scripts/ComponentGhost.js" src="~/js/require.js"></script>
 </head>
 <body>
 <!--
@@ -22,6 +25,10 @@
     Send post to controller to amend model,
     Ensure to avoid desync
 -->
+
+    <div class="" id="activeSchematicArea">
+
+    </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
