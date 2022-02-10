@@ -1,18 +1,48 @@
 ﻿class ComponentGhost {
+    #componentIDMapURL = 'https://localhost:44338/Editor/ComponentToIDMapJSON';
+
     constructor(mousePosX, mousePosY, componentID) {
         this.configuredGhost = this.configureComponentGhost(mousePosX, mousePosY);
-        this.componentID = componentID;
-        this.className = undefined;
+        this.componentID = "0";
+        this.className = this.getClassNameFromComponentID();
     }
 
-    setClassName(data) {
-        this.className = data[this.componentID];
+    fetchComponentIDData() {
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', this.#componentIDMapURL, true);
+
+        var responseJson = undefined;
+
+        xhr.onload = () => {
+            if (this.status === 200) {
+                let json = JSON.parse(this.responseText);
+                console.log("json thing: " + JSON.parse(this.responseText));
+
+                responseJson = json;
+
+                document.cookie = `responseJson=imacookie; expires=Fri, 31, Dec 2024 23:59:59 GMT; path=/`;
+            }
+        }
+
+        xhr.send();
+
+        //console.log("final return: " + document.cookie);
+        return this.#getCookie('responseJson');
+    }
+
+    #getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
     }
 
     getClassNameFromComponentID() {
-        fetch('https://localhost:44338/Editor/ComponentToIDMapJSON')
-            .then(response => response.json())
-            .then(data => setClassName(data));
+        let className = this.fetchComponentIDData();
+
+        console.log("ClassName: " + className);
+        return className;
     }
 
     configureComponentGhost(mousePosX, mousePosY) {
@@ -23,7 +53,6 @@
         componentGhost.className = this.componentID;
         componentGhost.style.top = mousePosY + "px";
         componentGhost.style.left = mousePosX + "px";
-        componentGhost.style.className = this.className;
         componentGhost.id = this.componentID;
         componentGhost.style.filter = "opacity(50%)";
 
