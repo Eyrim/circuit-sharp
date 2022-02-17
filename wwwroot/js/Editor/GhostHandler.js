@@ -37,7 +37,7 @@ fallback.ready(['jQuery'], function (jQuery) {
 
             let element = $(this).get(0);
             alert("aaa");
-            console.log(element);
+            console.log(event);
         });
     }
 
