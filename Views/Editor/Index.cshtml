@@ -14,9 +14,9 @@
     <meta name="viewport" content="width=device-width" />
     <title>Editor</title>
     <link rel="import" href="Menu" />
-    <script type="text/javascript" src="~/js/Editor/TrackMouse.js"></script>
-    <script type="text/javascript" src="~/js/Editor/ComponentGhost.js"></script>
-    <script type="text/javascript" src="~/js/Editor/Mouse.js"></script>
+
+    <script data-main="~/js/GhostHandler" src="~/lib/fallback/fallback.js"></script>
+    <script type="text/javascript" src="~/js/Editor/GhostHandler.js"></script>
 </head>
 <body>
 <!--
@@ -25,6 +25,12 @@
     Ensure to avoid desync
 -->
 
+    <div class="" id="componentButtonContainer">
+        <!--TMP: idk if componentID 0 is a resistor, this is just a placeholder for testing-->
+        <img class="" alt="componentid0" src="~/img/purpleBlackMissingTexture.png" id="component-0" />
+        <img class="" alt="componentid1" src="~/img/missingTexture.png" id="component-1" />
+    </div>
+    
     <div class="" id="activeSchematicArea">
 
     </div>
