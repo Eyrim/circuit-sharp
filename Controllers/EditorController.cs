@@ -11,7 +11,7 @@ namespace CircuitSharp.Controllers
 {
     public class EditorController : Controller
     {
-        // GET: EditorController
+        // GET: Editor/
         public ActionResult Index()
         {
             var model = new EditorModel();
@@ -19,19 +19,18 @@ namespace CircuitSharp.Controllers
             return View(model);
         }
 
-        // FETCH: EditorController/ComponentToIDMapJSON/
+        // GET: Editor/GetImgUrlFromTypeID/
+        public ActionResult GetImgUrlFromTypeID()
+        {
+            string file = Util.FileHandling.ReadFileToString(@"GenericData/ImgUrlFromTypeMap.json");
+
+            return Json(file);
+        }
+
+        // GET: Editor/ComponentToIDMapJSON/
         public ActionResult ComponentToIDMapJSON()
         {
-            string file = "";
-            string line = "";
-
-            using (StreamReader sr = new StreamReader(@"G:\circuit-sharp\componentToIDMap.json"))
-            {
-                while ((line = sr.ReadLine()) != null)
-                {
-                    file += line;
-                }
-            }
+            string file = Util.FileHandling.ReadFileToString(@"G:\circuit-sharp\componentToIDMap.json");
 
             return Json(file);
         }

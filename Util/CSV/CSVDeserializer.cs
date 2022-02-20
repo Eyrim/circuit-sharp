@@ -7,7 +7,7 @@ namespace CircuitSharp.Util.CSV
     {
         public static CSVFile<string> Deserialize(string filePath)
         {
-            List<string> csv = FileHandling.ReadFile(filePath);
+            List<string> csv = FileHandling.ReadFileToList(filePath);
             List<string> csvUpdated = new List<string>();
             List<string> orderOfValues = new List<string>();
             List<string> splitLine = null;
