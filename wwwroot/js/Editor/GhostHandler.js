@@ -32,16 +32,18 @@
              */ 
             {
                 let typeIdToImgUrlWorker = new Worker("/js/Editor/Workers/GetImgURLFromTypeID.js");
+
                 // Gets the img url for the type of element
                 typeIdToImgUrlWorker.onmessage = (event) => {
-                    let imgUrl = event.data[componentTypeID];
+                    console.log("Worker sent message and was recieved");
+                    let imgUrl = JSON.parse(event.data);
                     console.log(imgUrl);
                     let ghostCounter = 0;
-                    
+
                     document.addEventListener('mousemove', (event) => {
                         console.log("pls");
                         drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter);
-                        removeComponentGhost(ghostCounter);
+                        //removeComponentGhost(ghostCounter);
                         ghostCounter += 1;
                         console.log("drawn and removed a component");
                     })
@@ -50,17 +52,19 @@
         })
 
         function drawComponentGhost(xPos, yPos, url, id) {
+            let activeAreaEl = document.getElementById('activeSchematicArea');
             let ghost = document.createElement('img');
             ghost.src = url;
             ghost.style.left = xPos + "px";
             ghost.style.top = yPos + "px";
             ghost.id = id;
 
-            document.appendChild(ghost);
+            activeAreaEl.appendChild(ghost);
         }
 
         function removeComponentGhost(id) {
-            document.removeChild(document.getElementById(id));
+            let activeAreaEl = document.getElementById('activeSchematicArea');
+            activeAreaEl.removeChild(document.getElementById(id));
         }
 
         function getTypeIDFromComponentID(id) {

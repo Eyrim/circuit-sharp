@@ -24,7 +24,7 @@ namespace CircuitSharp.Controllers
         {
             string file = Util.FileHandling.ReadFileToString(@"GenericData/ImgUrlFromTypeMap.json");
 
-            return Json(file);
+            return Content(file);
         }
 
         // GET: Editor/ComponentToIDMapJSON/
