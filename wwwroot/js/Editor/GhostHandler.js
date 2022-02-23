@@ -17,6 +17,15 @@
         // When a component Button is clicked
         let componentButtonContainerEl = document.getElementById("componentButtonContainer");
 
+        function getImgUrl(id) {
+            fetch('https://localhost:44338/Editor/GetImgUrlFromTypeID/', { method: "GET" })
+                .then((response) => {
+                    return response.json[id];
+                }, () => {
+                    return "promise rejected";
+                })
+        }
+
         // When an element within this container is clicked
         $(componentButtonContainerEl).click((event) => {
             console.log(event.target.id);
@@ -31,12 +40,26 @@
              * TYPE ID TO IMG URL
              */ 
             {
+                let imgUrl = getImgUrl(componentTypeID);
+                console.log("imgUrl" + imgUrl);
+                console.log("imgUrlType" + typeof imgUrl);
+                let ghostCounter = 0;
+
+                document.addEventListener('mousemove', (event) => {
+                    console.log("pls");
+                    drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter);
+                    //removeComponentGhost(ghostCounter);
+                    ghostCounter += 1;
+                    console.log("drawn and removed a component");
+                })
+
+                /*
                 let typeIdToImgUrlWorker = new Worker("/js/Editor/Workers/GetImgURLFromTypeID.js");
 
                 // Gets the img url for the type of element
                 typeIdToImgUrlWorker.onmessage = (event) => {
                     console.log("Worker sent message and was recieved");
-                    let imgUrl = JSON.parse(event.data);
+                    let imgUrl = event.data[componentTypeID];
                     console.log(imgUrl);
                     let ghostCounter = 0;
 
@@ -48,6 +71,8 @@
                         console.log("drawn and removed a component");
                     })
                 }
+                */
+                
             }
         })
 

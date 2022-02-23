@@ -11,7 +11,9 @@ xhr.send();
 
 fetch('https://localhost:44338/Editor/GetImgUrlFromTypeID/', {method:"GET"})
     .then((response) => {
-        postMessage(JSON.stringify(response.text));
+        let responseText = JSON.parse(JSON.stringify(response.json()));
+        postMessage(responseText)
+        //postMessage(JSON.parse(JSON.stringify(this.responseJson)));
     }, () => {
         Worker.prototype.postMessage("promise rejected");
     });
