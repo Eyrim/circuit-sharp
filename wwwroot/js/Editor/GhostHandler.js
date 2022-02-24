@@ -1,4 +1,6 @@
-﻿window.onload = () => {
+﻿'use strict';
+
+window.onload = () => {
     // Configure Fallback.js
     fallback.load({
         jQuery: [
@@ -11,8 +13,6 @@
 
     fallback.ready(['jQuery'], (jQuery) => {
         console.log("Loaded jQuery");
-
-        'use strict';
 
         // When a component Button is clicked
         let componentButtonContainerEl = document.getElementById("componentButtonContainer");
@@ -27,10 +27,10 @@
                 })
                 */
             $.getJSON('https://localhost:44338/Editor/GetImgUrlFromTypeID/')
-                .done((data) => {
+                .done(async (data) => {
                     console.log("JSON: " + $.parseJSON(data)[0]);
-                    let json = $.parseJSON(data)[0];
-                    //return $.parseJSON(data);
+                    let json = await $.parseJSON(data)[0];
+                    return json;
                 })
                 .fail((error) => {
                     console.log("GET request failed: " + error);
