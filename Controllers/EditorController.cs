@@ -20,7 +20,7 @@ namespace CircuitSharp.Controllers
         }
 
         // GET: Editor/GetImgUrlFromTypeID/
-        public ActionResult GetImgUrlFromTypeID()
+        public JsonResult GetImgUrlFromTypeID()
         {
             string file = Util.FileHandling.ReadFileToString(@"GenericData/ImgUrlFromTypeMap.json");
 

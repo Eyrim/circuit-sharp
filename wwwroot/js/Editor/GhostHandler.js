@@ -17,13 +17,25 @@
         // When a component Button is clicked
         let componentButtonContainerEl = document.getElementById("componentButtonContainer");
 
-        function getImgUrl(id) {
+        function getImgUrl() {
+            /*
             fetch('https://localhost:44338/Editor/GetImgUrlFromTypeID/', { method: "GET" })
                 .then((response) => {
                     return response.json[id];
                 }, () => {
                     return "promise rejected";
                 })
+                */
+            $.getJSON('https://localhost:44338/Editor/GetImgUrlFromTypeID/')
+                .done((data) => {
+                    console.log("JSON: " + $.parseJSON(data)[0]);
+                    let json = $.parseJSON(data)[0];
+                    //return $.parseJSON(data);
+                })
+                .fail((error) => {
+                    console.log("GET request failed: " + error);
+                    return "didnt work";
+                });
         }
 
         // When an element within this container is clicked
@@ -40,13 +52,12 @@
              * TYPE ID TO IMG URL
              */ 
             {
-                let imgUrl = getImgUrl(componentTypeID);
-                console.log("imgUrl" + imgUrl);
+                let imgUrl = getImgUrl();
+                console.log("imgUrl" + imgUrl[componentTypeID]);
                 console.log("imgUrlType" + typeof imgUrl);
                 let ghostCounter = 0;
 
                 document.addEventListener('mousemove', (event) => {
-                    console.log("pls");
                     drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter);
                     //removeComponentGhost(ghostCounter);
                     ghostCounter += 1;
