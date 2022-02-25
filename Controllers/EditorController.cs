@@ -19,20 +19,14 @@ namespace CircuitSharp.Controllers
             return View(model);
         }
 
-        // GET: Editor/GetImgUrlFromTypeID/
-        public JsonResult GetImgUrlFromTypeID()
-        {
-            string file = Util.FileHandling.ReadFileToString(@"GenericData/ImgUrlFromTypeMap.json");
+        // GET: Editor/GetImgUrlFromTypeID?TypeID=
+        public ActionResult GetImgUrlFromTypeID(string TypeID)
+        { 
+            string dir = @"GenericData/Imgs/";
+            // Combines the directory and the filename to make a proper path
+            string path = Path.Combine(dir, TypeID + ".png");
 
-            return Json(file);
-        }
-
-        // GET: Editor/ComponentToIDMapJSON/
-        public ActionResult ComponentToIDMapJSON()
-        {
-            string file = Util.FileHandling.ReadFileToString(@"G:\circuit-sharp\componentToIDMap.json");
-
-            return Json(file);
+            return base.File(path, "image/png");
         }
     }
 }

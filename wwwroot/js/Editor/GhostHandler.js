@@ -17,7 +17,7 @@ window.onload = () => {
         // When a component Button is clicked
         let componentButtonContainerEl = document.getElementById("componentButtonContainer");
 
-        function getImgUrl() {
+        function drawComponentGhost(typeID) {
             /*
             fetch('https://localhost:44338/Editor/GetImgUrlFromTypeID/', { method: "GET" })
                 .then((response) => {
@@ -29,8 +29,20 @@ window.onload = () => {
             $.getJSON('https://localhost:44338/Editor/GetImgUrlFromTypeID/')
                 .done(async (data) => {
                     console.log("JSON: " + $.parseJSON(data)[0]);
-                    let json = await $.parseJSON(data)[0];
-                    return json;
+                    let json = await $.parseJSON(data);
+
+                    let imgUrl = json[typeID];
+
+                    let ghostCounter = 0;
+
+                    document.addEventListener('mousemove', (event) => {
+                        configureAndSpawnGhost(event.clientX, event.clientY, imgUrl, ghostCounter);
+                        //removeComponentGhost(ghostCounter);
+                        ghostCounter += 1;
+                        console.log("drawn and removed a component");
+                    })
+
+                    return await json;
                 })
                 .fail((error) => {
                     console.log("GET request failed: " + error);
@@ -39,12 +51,14 @@ window.onload = () => {
         }
 
         // When an element within this container is clicked
-        $(componentButtonContainerEl).click((event) => {
+        $(componentButtonContainerEl).click(async (event) => {
             console.log(event.target.id);
             event.stopPropagation();
 
             // The componentID
             let componentTypeID = getTypeIDFromComponentID(event.target.id);
+
+            drawComponentGhost(componentTypeID);
 
             /*
              * NEEDED DATA
@@ -52,17 +66,7 @@ window.onload = () => {
              * TYPE ID TO IMG URL
              */ 
             {
-                let imgUrl = getImgUrl();
-                console.log("imgUrl" + imgUrl[componentTypeID]);
-                console.log("imgUrlType" + typeof imgUrl);
-                let ghostCounter = 0;
-
-                document.addEventListener('mousemove', (event) => {
-                    drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter);
-                    //removeComponentGhost(ghostCounter);
-                    ghostCounter += 1;
-                    console.log("drawn and removed a component");
-                })
+                
 
                 /*
                 let typeIdToImgUrlWorker = new Worker("/js/Editor/Workers/GetImgURLFromTypeID.js");
@@ -87,7 +91,7 @@ window.onload = () => {
             }
         })
 
-        function drawComponentGhost(xPos, yPos, url, id) {
+        function configureAndSpawnGhost(xPos, yPos, url, id) {
             let activeAreaEl = document.getElementById('activeSchematicArea');
             let ghost = document.createElement('img');
             ghost.src = url;
