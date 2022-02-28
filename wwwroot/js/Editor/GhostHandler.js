@@ -1,92 +1,81 @@
 ﻿'use strict';
 
 window.onload = () => {
-    // Configure Fallback.js
     fallback.load({
         jQuery: [
             // Google's CDN
             "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
-            // 
+            // Local fallback
             "https://localhost:44338/lib/jquery/dist/jquery.js"
         ]
     });
 
-    function sleep(ms) {
-        const date = Date.now();
-        let currentDate = null;
-        do {
-            currentDate = Date.now();
-        } while (currentDate - date < ms);
-    }
-
+    // When jQuery is loaded
     fallback.ready(['jQuery'], (jQuery) => {
         console.log("Loaded jQuery");
 
-        // When a component Button is clicked
-        let componentButtonContainerEl = document.getElementById("componentButtonContainer");
+        // The container with the buttons to spawn an element within them
+        const componentButtonContainer = document.getElementById("componentButtonContainer");
 
-        // When an element within this container is clicked
-        $(componentButtonContainerEl).click(async (event) => {
-            console.log(event.target.id);
-            event.stopPropagation();
+        // When an element in the button container is clicked
+        $(componentButtonContainer).click(async (event) => {
 
-            // The componentID
-            let componentTypeID = getTypeIDFromComponentID(event.target.id);
+            // If the clicked element is a button
+            if (event.target.tagName == "BUTTON") {
 
-            {
-                
-                let imgUrl = 'https://localhost:44338/Editor/GetImgUrlFromTypeID?TypeID=' + componentTypeID;
-
+                // Used to iterate over the ghosts being trailed
                 let ghostCounter = 0;
+                // The url of the img src
+                let imgUrl = 'https://localhost:44338/Editor/GetImgUrlFromTypeID?TypeID=' + getTypeIDFromElID(event.target.id);
 
+                // Previous mouse positions
+                    // Used to detect if first click or not
+                let prevMouseX = undefined;
+                let prevMouseY = undefined;
+
+                console.log("Component Button ${event.target.id} cicked");
+                event.stopPropagation();
+
+                // Every time the mouse moves
                 document.addEventListener('mousemove', (event) => {
-                    drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter);
-                    sleep(100);
-                    removeComponentGhost(ghostCounter);
+                    if (prevMouseX == undefined || prevMouseY == undefined) {
+                        // Set previous mouse move
+                        prevMouseX = event.clientX;
+                        prevMouseY = event.clientY;
+                    } else {
+                        // Remove the ghost drawn by the last mouse movement
+                            // Only if this isn't the first mouse movement
+                        removeComponentGhostByID(ghostCounter, componentButtonContainer);
+                    }
+
+                    drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter, componentButtonContainer);
+
                     ghostCounter += 1;
-                    console.log("drawn and removed a component");
                 })
-                /*
-                let typeIdToImgUrlWorker = new Worker("/js/Editor/Workers/GetImgURLFromTypeID.js");
-
-                // Gets the img url for the type of element
-                typeIdToImgUrlWorker.onmessage = (event) => {
-                    console.log("Worker sent message and was recieved");
-                    let imgUrl = event.data[componentTypeID];
-                    console.log(imgUrl);
-                    let ghostCounter = 0;
-
-                    document.addEventListener('mousemove', (event) => {
-                        console.log("pls");
-                        drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter);
-                        //removeComponentGhost(ghostCounter);
-                        ghostCounter += 1;
-                        console.log("drawn and removed a component");
-                    })
-                }
-                */
-                
             }
         })
 
-        function drawComponentGhost(xPos, yPos, url, id) {
-            let activeAreaEl = document.getElementById('activeSchematicArea');
+        function getTypeIDFromElID(id) {
+            return id.split("-")[1];
+        }
+
+        function drawComponentGhost(xPos, yPos, url, id, parent) {
             let ghost = document.createElement('img');
             ghost.src = url;
             ghost.style.left = xPos + "px";
             ghost.style.top = yPos + "px";
             ghost.id = id;
 
-            activeAreaEl.appendChild(ghost);
+            parent.appendChild(ghost);
         }
 
-        function removeComponentGhost(id) {
-            let activeAreaEl = document.getElementById('activeSchematicArea');
-            activeAreaEl.removeChild(document.getElementById(id));
-        }
+        function removeComponentGhostByID(id, parent) {
+            // The last element drawn
+            id -= 1;
+            let el = document.getElementById(id);
 
-        function getTypeIDFromComponentID(id) {
-            return id.split("-")[1];
+            // Remove the last element
+            parent.removeChild(el);
         }
-    });
+    })
 }

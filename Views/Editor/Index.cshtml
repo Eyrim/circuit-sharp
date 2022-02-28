@@ -20,16 +20,14 @@
     <script type="text/javascript" src="~/js/Editor/GhostHandler.js"></script>
 </head>
 <body>
-    <div class="" id="componentButtonContainer">
-        <button type="button" id="component-0">Click Me Pls</button>
-    </div>
-    
     <div class="activeSchematicArea" id="activeSchematicArea">
-
+        <div class="" id="componentButtonContainer">
+            <button type="button" id="component-0">Click Me Pls</button>
+        </div>
     </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
 </body>
 </html>
