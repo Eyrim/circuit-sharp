@@ -16,6 +16,7 @@ window.onload = () => {
 
         // The container with the buttons to spawn an element within them
         const componentButtonContainer = document.getElementById("componentButtonContainer");
+        const activeSchematicArea = document.getElementById("activeSchematicArea");
 
         // When an element in the button container is clicked
         $(componentButtonContainer).click(async (event) => {
@@ -45,10 +46,10 @@ window.onload = () => {
                     } else {
                         // Remove the ghost drawn by the last mouse movement
                             // Only if this isn't the first mouse movement
-                        removeComponentGhostByID(ghostCounter, componentButtonContainer);
+                        removeComponentGhostByID(ghostCounter, activeSchematicArea);
                     }
 
-                    drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter, componentButtonContainer);
+                    drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter, activeSchematicArea);
 
                     ghostCounter += 1;
                 })

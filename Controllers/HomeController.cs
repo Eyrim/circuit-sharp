@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
 using System.Web;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,6 +39,15 @@ namespace CircuitSharp.Controllers
         protected void btnRedirect_Click(object sender, EventArgs e)
         {
             Response.Redirect("Editor.cshtml");
+        }
+
+        //GET: MissingTexture
+            //TODO: Move this to generic file or image controller
+        public ActionResult MissingTexture()
+        {
+            string dir = @"GenericData/Imgs/missingTexture.png";
+
+            return base.File(dir, "image/png");
         }
     }
 }
