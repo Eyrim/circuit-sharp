@@ -2,7 +2,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-image: url("https://localhost:44338/Home/MissingTexture");
+    background-image: url("https://localhost:5001/Home/MissingTexture");
     /* Preserve Aspect Ratio */
     min-width: 100%;
     min-height: 100%;
