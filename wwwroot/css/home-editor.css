@@ -8,4 +8,8 @@
     min-height: 100%;
 }
 
+.componentGhost {
+    position: absolute; /* Makes the component react to left:; and top:; */
+}
+
 /* https://css-tricks.com/perfect-full-page-background-image/ */

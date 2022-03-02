@@ -66,6 +66,7 @@ window.onload = () => {
             ghost.style.left = xPos + "px";
             ghost.style.top = yPos + "px";
             ghost.id = id;
+            ghost.className = "componentGhost"
 
             parent.appendChild(ghost);
         }
