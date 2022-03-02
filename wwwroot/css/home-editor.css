@@ -8,7 +8,7 @@
     min-height: 100%;
 }
 
-.componentGhost {
+.component {
     position: absolute; /* Makes the component react to left:; and top:; */
 }
 
