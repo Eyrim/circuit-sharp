@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CircuitSharp.Models;
 using System.IO;
+using SchematicEditor.Components;
+using Ksu.Cis300.Graphs;
 
 namespace CircuitSharp.Controllers
 {
@@ -20,6 +22,7 @@ namespace CircuitSharp.Controllers
         }
 
         // GET: Editor/GetImgUrlFromTypeID?TypeID=
+        [HttpGet]
         public ActionResult GetImgUrlFromTypeID(string TypeID)
         { 
             string dir = @"GenericData/Imgs/";
@@ -27,6 +30,13 @@ namespace CircuitSharp.Controllers
             string path = Path.Combine(dir, TypeID + ".png");
 
             return base.File(path, "image/png");
+        }
+
+        // POST: Editor/PlaceComponent?TypeID=&UUID=&Position=&Connections=
+        [HttpPost]
+        public ActionResult PlaceComponent(string TypeID, string UUID, string Position, string Connections)
+        {
+            DirectedGraph<>
         }
     }
 }

@@ -8,13 +8,9 @@ namespace CircuitSharp.Models
 {
     public class EditorModel
     {
-        private CSVFile<string> csv;
-
-        public CSVFile<string> GetCSVFile(string filePath)
-        {
-            CSVFile<string> csv = CSVDeserializer.Deserialize(filePath);
-
-            return null;
-        }
+        private string TypeID;
+        private string UUID;
+        private string Position;
+        private string Connections;
     }
 }
