@@ -34,9 +34,9 @@ namespace CircuitSharp.Controllers
 
         // POST: Editor/PlaceComponent?TypeID=&UUID=&Position=&Connections=
         [HttpPost]
-        public ActionResult PlaceComponent(string TypeID, string UUID, string Position, string Connections)
+        public void PlaceComponent(string TypeID, string UUID, string Position, string Connections)
         {
-            DirectedGraph<>
+            
         }
     }
 }
