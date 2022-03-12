@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CircuitSharp.Models;
 using System.IO;
 using SchematicEditor.Components;
-using Ksu.Cis300.Graphs;
+//using Ksu.Cis300.Graphs;
 
 namespace CircuitSharp.Controllers
 {
@@ -32,11 +32,11 @@ namespace CircuitSharp.Controllers
             return base.File(path, "image/png");
         }
 
-        // POST: Editor/PlaceComponent?TypeID=&UUID=&Position=&Connections=
+        // POST: Editor/PlaceComponent?TypeID=
         [HttpPost]
-        public void PlaceComponent(string TypeID, string UUID, string Position, string Connections)
+        public void PlaceComponent(string TypeID) //TODO: Add Grid functionality
         {
-            
+            Console.WriteLine(TypeID);
         }
     }
 }
