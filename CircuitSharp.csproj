@@ -27,6 +27,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SchematicEditor\src\Components\Resistors\" />
+    <Folder Include="SchematicEditor\src\Components\Exceptions\" />
   </ItemGroup>
 </Project>

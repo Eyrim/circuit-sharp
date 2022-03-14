@@ -8,7 +8,7 @@ window.onload = () => {
             // Google's CDN
             "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
             // Local fallback
-            "https://localhost:44338/lib/jquery/dist/jquery.js"
+            "https://localhost:8001/lib/jquery/dist/jquery.js"
         ]
     });
 
@@ -28,8 +28,11 @@ window.onload = () => {
 
                 // Used to iterate over the ghosts being trailed
                 let ghostCounter = 0;
+
+                let typeID = getTypeIDFromElID(event.target.id);
+
                 // The url of the img src
-                let imgUrl = 'https://localhost:44338/Editor/GetImgUrlFromTypeID?TypeID=' + getTypeIDFromElID(event.target.id);
+                let imgUrl = 'https://localhost:8001/Editor/GetImgUrlFromTypeID?TypeID=' + typeID;
 
                 // Previous mouse positions
                     // Used to detect if first click or not
@@ -65,6 +68,20 @@ window.onload = () => {
                 console.log("Component Button ${event.target.id} cicked");
                 event.stopPropagation();
 
+<<<<<<< HEAD
+=======
+                //TODO: Validate this for if the mouse was clicked within the active area
+                    // For testing, the active area is the entire page, but this will change in Prod
+                // When the user clicks while a ghost is drawn on the mouse position
+                document.addEventListener('click', (event, imgUrl) => {
+                    placeComponent(event.clientX, event.clientY, getImgUrlFromParent(activeSchematicArea), typeID, activeSchematicArea);
+                    removeComponentGhostByID(ghostCounter, activeSchematicArea);
+
+                    ghostCounter = 0;
+                    document.removeEventListener('mousemove', mouseMoveCallbackFunc);//TODO: FIX
+                })
+
+>>>>>>> d38db4d09b305e222c894b4174d040d633b26cc9
                 // Every time the mouse moves
                 document.addEventListener('mousemove', mouseMoveCallbackFunc);
 
@@ -94,8 +111,6 @@ window.onload = () => {
         }
 
         function placeComponent(xPos, yPos, imgUrl, id, parent) {
-            //TODO: Send message to controller to alert model
-
             let component = document.createElement('img');
             component.src = imgUrl;
             component.style.left = xPos + "px";
@@ -104,7 +119,33 @@ window.onload = () => {
             component.className = "component";
 
             parent.appendChild(component);
+
+            NotifyControllerOfPlace(component);
         }
+
+        
+        function NotifyControllerOfPlace(component) {
+            fetch('https://localhost:8001/Editor/PlaceComponent?TypeID=${component.id}', {
+                method: 'POST',
+                body: '',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+
+            }).then((response) => {
+                if (response.ok) {
+                    return response.ok;
+                }
+                return Promise.reject(response);
+
+            }).then((data) => {
+                console.log(data);
+
+            }).catch((error) => {
+                console.warn(error);
+            });
+        }
+        
 
         function getTypeIDFromElID(id) {
             return id.split("-")[1];
