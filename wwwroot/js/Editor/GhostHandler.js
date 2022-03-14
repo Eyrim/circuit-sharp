@@ -68,20 +68,6 @@ window.onload = () => {
                 console.log("Component Button ${event.target.id} cicked");
                 event.stopPropagation();
 
-<<<<<<< HEAD
-=======
-                //TODO: Validate this for if the mouse was clicked within the active area
-                    // For testing, the active area is the entire page, but this will change in Prod
-                // When the user clicks while a ghost is drawn on the mouse position
-                document.addEventListener('click', (event, imgUrl) => {
-                    placeComponent(event.clientX, event.clientY, getImgUrlFromParent(activeSchematicArea), typeID, activeSchematicArea);
-                    removeComponentGhostByID(ghostCounter, activeSchematicArea);
-
-                    ghostCounter = 0;
-                    document.removeEventListener('mousemove', mouseMoveCallbackFunc);//TODO: FIX
-                })
-
->>>>>>> d38db4d09b305e222c894b4174d040d633b26cc9
                 // Every time the mouse moves
                 document.addEventListener('mousemove', mouseMoveCallbackFunc);
 
