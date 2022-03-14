@@ -36,6 +36,16 @@ window.onload = () => {
                 let prevMouseX = undefined;
                 let prevMouseY = undefined;
 
+                const mouseClickCallbackFunc = function (event) {
+                    placeComponent(event.clientX, event.clientY, getImgUrlFromParent(activeSchematicArea), ghostCounter, activeSchematicArea);
+                    removeComponentGhostByID(ghostCounter, activeSchematicArea);
+
+                    // I have no idea why, but removing this line breaks everything
+                    document.removeEventListener('mousemove', mouseMoveCallbackFunc); //TODO: FIX
+
+                    document.removeEventListener('click', mouseClickCallbackFunc);
+                }
+
                 const mouseMoveCallbackFunc = function (event) {
                     if (prevMouseX == undefined || prevMouseY == undefined) {
                         // Set previous mouse move
@@ -55,18 +65,13 @@ window.onload = () => {
                 console.log("Component Button ${event.target.id} cicked");
                 event.stopPropagation();
 
-                //TODO: Validate this for if the mouse was clicked within the active area
-                    // For testing, the active area is the entire page, but this will change in Prod
-                // When the user clicks while a ghost is drawn on the mouse position
-                document.addEventListener('click', (event, imgUrl) => {
-                    placeComponent(event.clientX, event.clientY, getImgUrlFromParent(activeSchematicArea), ghostCounter, activeSchematicArea);
-                    removeComponentGhostByID(ghostCounter, activeSchematicArea);
-
-                    document.removeEventListener('mousemove', mouseMoveCallbackFunc);//TODO: FIX
-                })
-
                 // Every time the mouse moves
                 document.addEventListener('mousemove', mouseMoveCallbackFunc);
+
+                //TODO: Validate this for if the mouse was clicked within the active area
+                // For testing, the active area is the entire page, but this will change in Prod
+                // When the user clicks while a ghost is drawn on the mouse position
+                document.addEventListener('click', mouseClickCallbackFunc); // This is an Ostrich, ignoring the error until it becomes a problem
             }
         })
 
@@ -122,8 +127,11 @@ window.onload = () => {
             id -= 1;
             let el = document.getElementById(id);
 
-            // Remove the last element
-            parent.removeChild(el);
+            // Bandaid solution, not proud of it but I'm desperate 
+            if (el != undefined) {
+                // Remove the last element
+                parent.removeChild(el);
+            }
         }
     })
 }
