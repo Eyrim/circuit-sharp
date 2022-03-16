@@ -34,7 +34,7 @@ namespace CircuitSharp.Controllers
         [HttpPost]
         public void PlaceComponent(string TypeID) //TODO: Add Grid functionality
         {
-            FileHandling.WriteToFile(toWrite: TypeID, filePath: @"G:\circuit-sharp\output.txt");
+            FileHandling.WriteToFile(TypeID, @"G:\circuit-sharp\output.txt");
         }
     }
 }
