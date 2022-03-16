@@ -8,7 +8,7 @@ window.onload = () => {
             // Google's CDN
             "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
             // Local fallback
-            "https://localhost:8001/lib/jquery/dist/jquery.js"
+            "https://localhost:44338/lib/jquery/dist/jquery.js"
         ]
     });
 
@@ -32,7 +32,7 @@ window.onload = () => {
                 let typeID = getTypeIDFromElID(event.target.id);
 
                 // The url of the img src
-                let imgUrl = 'https://localhost:8001/Editor/GetImgUrlFromTypeID?TypeID=' + typeID;
+                let imgUrl = 'https://localhost:44338/Editor/GetImgUrlFromTypeID?TypeID=' + typeID;
 
                 // Previous mouse positions
                     // Used to detect if first click or not
@@ -106,12 +106,12 @@ window.onload = () => {
 
             parent.appendChild(component);
 
-            NotifyControllerOfPlace(component);
+            console.log(NotifyControllerOfPlace(component));
         }
 
-        
-        function NotifyControllerOfPlace(component) {
-            fetch('https://localhost:8001/Editor/PlaceComponent?TypeID=${component.id}', {
+        async function NotifyControllerOfPlace(component) {
+            
+            fetch('https://localhost:44338/Editor/PlaceComponent?TypeID=${component.id}', {
                 method: 'POST',
                 body: '',
                 headers: {
@@ -124,8 +124,8 @@ window.onload = () => {
                 }
                 return Promise.reject(response);
 
-            }).then((data) => {
-                console.log(data);
+            }).then(() => {
+                console.log("Controller notified");
 
             }).catch((error) => {
                 console.warn(error);

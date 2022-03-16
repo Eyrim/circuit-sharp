@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 
 namespace CircuitSharp.Util
 {
@@ -34,6 +35,24 @@ namespace CircuitSharp.Util
             }
 
             return file;
+        }
+
+        public static void WriteToFile(string toWrite, string filePath)
+        {
+            //TODO: Check if path exists
+            using (StreamWriter sw = new StreamWriter(filePath, append: false))
+            {
+                sw.WriteLine(toWrite);
+            }
+        }
+
+        public static void AppendToFile(string toWrite, string filePath)
+        {
+            //TODO: Check if path exists
+            using (StreamWriter sw = new StreamWriter(filePath, append: true))
+            {
+                sw.WriteLine(toWrite);
+            }
         }
     }
 }

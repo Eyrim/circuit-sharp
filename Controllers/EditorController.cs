@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CircuitSharp.Models;
 using System.IO;
 using SchematicEditor.Components;
+using CircuitSharp.Util;
 //using Ksu.Cis300.Graphs;
 
 namespace CircuitSharp.Controllers
@@ -36,7 +34,7 @@ namespace CircuitSharp.Controllers
         [HttpPost]
         public void PlaceComponent(string TypeID) //TODO: Add Grid functionality
         {
-            Console.WriteLine(TypeID);
+            FileHandling.WriteToFile(toWrite: TypeID, filePath: @"G:\circuit-sharp\output.txt");
         }
     }
 }
