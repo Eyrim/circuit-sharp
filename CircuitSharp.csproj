@@ -14,19 +14,12 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Ksu.Cis300.Graphs">
-      <HintPath>\\Chidata\ClassDocs\HaywardsStudents\H50004271\Downloads\Ksu.Cis300.Graphs.dll</HintPath>
-    </Reference>
-    <Reference Include="SchematicEditor">
-      <HintPath>..\circuit-sharp-editor\bin\Debug\net5.0\SchematicEditor.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Update="electron.manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Dependencies\" />
     <Folder Include="SchematicEditor\src\Components\Exceptions\" />
   </ItemGroup>
 </Project>

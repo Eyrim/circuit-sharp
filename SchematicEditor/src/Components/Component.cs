@@ -5,5 +5,6 @@
     /// </summary>
     public abstract class Component
     {
+        public string UUID { get; set; }
     }
 }
