@@ -106,12 +106,14 @@ window.onload = () => {
 
             parent.appendChild(component);
 
-            console.log(NotifyControllerOfPlace(component));
+            let TypeID = component.src.split('=')[1];
+
+            console.log(NotifyControllerOfPlace(TypeID));
         }
 
-        async function NotifyControllerOfPlace(component) {
+        async function NotifyControllerOfPlace(TypeID) {
             
-            fetch('https://localhost:44338/Editor/PlaceComponent?TypeID=${component.id}', {
+            fetch('https://localhost:44338/Editor/PlaceComponent?TypeID=' + TypeID, {
                 method: 'POST',
                 body: '',
                 headers: {

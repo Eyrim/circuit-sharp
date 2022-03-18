@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ElectronNET.API;
+using CircuitSharp.Models;
 
 namespace CircuitSharp
 {
@@ -15,6 +16,7 @@ namespace CircuitSharp
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+            EditorModel.Circuit = new Structures.Circuit.Circuit();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CircuitSharp.SchematicEditor.src.Components.Enumerators;
 using CircuitSharp.SchematicEditor.src.Components.Wires;
+using CircuitSharp.Util;
 
 namespace CircuitSharp.SchematicEditor.src.Components
 {
@@ -11,9 +12,7 @@ namespace CircuitSharp.SchematicEditor.src.Components
     {
         public string UUID { get; set; }
 
-        public int GridX { get; set; }
-
-        public int GridY { get; set; }
+        public Point Position { get; set; }
 
         public double Value { get; set; }
 

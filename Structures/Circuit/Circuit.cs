@@ -18,8 +18,7 @@ namespace CircuitSharp.Structures.Circuit
         {
             this.Nodes = Nodes;
         }
-
-
+      
         public void AddNode(ref Component Node)
         {
             if (Node == null)
@@ -49,7 +48,9 @@ namespace CircuitSharp.Structures.Circuit
             return false;
         }
 
-
-        public static 
+        public static void GetPath()
+        {
+            //
+        }
     }
 }

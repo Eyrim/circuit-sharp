@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using CircuitSharp.Models;
 using System.IO;
-using SchematicEditor.Components;
 using CircuitSharp.Util;
-//using Ksu.Cis300.Graphs;
+using CircuitSharp.SchematicEditor.src.Components.Resistors;
 
 namespace CircuitSharp.Controllers
 {
@@ -32,9 +31,25 @@ namespace CircuitSharp.Controllers
 
         // POST: Editor/PlaceComponent?TypeID=
         [HttpPost]
-        public void PlaceComponent(string TypeID) //TODO: Add Grid functionality
+        public void PlaceComponent(string TypeID, string GridPos, string Value) //TODO: Add Grid functionality
         {
-            FileHandling.WriteToFile(TypeID, @"G:\circuit-sharp\output.txt");
+            //GridPos = "0,4"
+
+            double gridX = Convert.ToDouble(GridPos.Split(',')[0]);
+            double gridY = Convert.ToDouble(GridPos.Split(',')[1]);
+            double numValue = Convert.ToDouble(Value);
+
+            //TODO: Write to DB at some point?
+
+            switch (TypeID)
+            {
+                case "0":
+                    GenericResistor r = new GenericResistor();
+
+                    EditorModel.Circuit.AddNode(ref r);
+
+                    break;
+            }
         }
     }
 }
