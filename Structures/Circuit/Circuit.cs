@@ -8,6 +8,7 @@ namespace CircuitSharp.Structures.Circuit
     {
         private List<Component> Nodes;
 
+
         public Circuit()
         {
             this.Nodes = new List<Component>();
@@ -17,6 +18,7 @@ namespace CircuitSharp.Structures.Circuit
         {
             this.Nodes = Nodes;
         }
+
 
         public void AddNode(ref Component Node)
         {
@@ -46,5 +48,8 @@ namespace CircuitSharp.Structures.Circuit
 
             return false;
         }
+
+
+        public static 
     }
 }

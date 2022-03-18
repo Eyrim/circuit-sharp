@@ -47,6 +47,18 @@ namespace CircuitSharp.SchematicEditor.src.Components
             this.ComponentsAtJunction.Add(Comp);
         }
 
+        /// <summary>
+        /// Clears the list of components connected to the junction
+        /// </summary>
+        public void ClearComponentsAtJunction()
+        {
+            this.ComponentsAtJunction.Clear();
+        }
+
+        /// <summary>
+        /// Gets the list of components at the junction
+        /// </summary>
+        /// <returns>The List of components at the junction</returns>
         public List<Component> GetComponentsAtJunction()
         {
             return this.ComponentsAtJunction;
