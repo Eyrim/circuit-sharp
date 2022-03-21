@@ -40,29 +40,36 @@ window.onload = () => {
                 let prevMouseY = undefined;
 
                 const mouseClickCallbackFunc = function (event) {
-                    placeComponent(event.clientX, event.clientY, getImgUrlFromParent(activeSchematicArea), ghostCounter, activeSchematicArea);
-                    removeComponentGhostByID(ghostCounter, activeSchematicArea);
+                    // If the click occurs when over the table
+                    if ($(".activeSchematicAreaRow:hover").length != 0) { //TODO: Places when not over table too, FIX
+                        console.log("test");
+                        placeComponent(event.clientX, event.clientY, getImgUrlFromParent(activeSchematicArea), ghostCounter, activeSchematicArea);
+                        removeComponentGhostByID(ghostCounter, activeSchematicArea);
 
-                    // I have no idea why, but removing this line breaks everything
-                    document.removeEventListener('mousemove', mouseMoveCallbackFunc); //TODO: FIX
+                        // I have no idea why, but removing this line breaks everything
+                        document.removeEventListener('mousemove', mouseMoveCallbackFunc); //TODO: FIX
 
-                    document.removeEventListener('click', mouseClickCallbackFunc);
+                        document.removeEventListener('click', mouseClickCallbackFunc);
+                    }
                 }
 
                 const mouseMoveCallbackFunc = function (event) {
-                    if (prevMouseX == undefined || prevMouseY == undefined) {
-                        // Set previous mouse move
-                        prevMouseX = event.clientX;
-                        prevMouseY = event.clientY;
-                    } else {
-                        // Remove the ghost drawn by the last mouse movement
-                        // Only if this isn't the first mouse movement
-                        removeComponentGhostByID(ghostCounter, activeSchematicArea);
+                    // If movement occurs over table
+                    if ($(".activeSchematicAreaTable:hover").length != 0) {
+                        if (prevMouseX == undefined || prevMouseY == undefined) {
+                            // Set previous mouse move
+                            prevMouseX = event.clientX;
+                            prevMouseY = event.clientY;
+                        } else {
+                            // Remove the ghost drawn by the last mouse movement
+                            // Only if this isn't the first mouse movement
+                            removeComponentGhostByID(ghostCounter, activeSchematicArea);
+                        }
+
+                        drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter, activeSchematicArea);
+
+                        ghostCounter += 1;
                     }
-
-                    drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter, activeSchematicArea);
-
-                    ghostCounter += 1;
                 }
 
                 console.log("Component Button ${event.target.id} cicked");

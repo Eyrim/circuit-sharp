@@ -21,6 +21,11 @@
     min-height: 100%;
 }
 
+.componentButton {
+    z-index: 999;
+    position: absolute;
+}
+
 .activeSchematicAreaTable {
     position: absolute;
     width: 80%;

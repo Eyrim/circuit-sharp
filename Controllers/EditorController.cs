@@ -33,21 +33,7 @@ namespace CircuitSharp.Controllers
         [HttpPost]
         public void PlaceComponent(string TypeID, string GridPos, string Value) //TODO: Add Grid functionality
         {
-            //GridPos = "0,4"
 
-            double gridX = Convert.ToDouble(GridPos.Split(',')[0]);
-            double gridY = Convert.ToDouble(GridPos.Split(',')[1]);
-            double numValue = Convert.ToDouble(Value);
-
-            //TODO: Write to DB at some point?
-
-            switch (TypeID)
-            {
-                case "0":
-                    GenericResistor r = new GenericResistor();
-
-                    break;
-            }
         }
     }
 }

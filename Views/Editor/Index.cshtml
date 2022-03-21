@@ -23,20 +23,20 @@
 <body>
     <div class="componentButtonContainer">
         <div class="" id="componentButtonContainer">
-            <button type="button" id="component-0">Click Me Pls</button>
+            <button type="button" class="componentButton" id="component-0">Click Me Pls</button>
         </div>
     </div>
     <div class="activeSchematicArea" id="activeSchematicArea">
-        <table class="activeSchematicAreaTable">
+        <table class="activeSchematicAreaTable" id="activeSchematicAreaTable">
         @{ 
             // Makes the table with the right sizes
             for (int i = 0; i < EditorModel.RowCount; i++)
             {
-                <tr class="activeSchematicAreaTableRow">
+                <tr class="activeSchematicAreaTableRow" id="activeSchematicAreaTableRow">
                     @{ 
                         for (int j = 0;  j < EditorModel.ColumnCount; j++)
                         {
-                            <td class="activeSchematicAreaTableColumn"></td>
+                            <td class="activeSchematicAreaTableColumn" id="activeSchematicAreaTableColumn"></td>
                         }
                     }
                 </tr>
