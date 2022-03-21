@@ -19,11 +19,30 @@
     <script data-main="~/js/GhostHandler" src="~/lib/fallback/fallback.js"></script>
     <script type="text/javascript" src="~/js/Editor/GhostHandler.js"></script>
 </head>
+
 <body>
-    <div class="activeSchematicArea" id="activeSchematicArea">
+    <div class="componentButtonContainer">
         <div class="" id="componentButtonContainer">
             <button type="button" id="component-0">Click Me Pls</button>
         </div>
+    </div>
+    <div class="activeSchematicArea" id="activeSchematicArea">
+        <table class="activeSchematicAreaTable">
+        @{ 
+            // Makes the table with the right sizes
+            for (int i = 0; i < EditorModel.RowCount; i++)
+            {
+                <tr class="activeSchematicAreaTableRow">
+                    @{ 
+                        for (int j = 0;  j < EditorModel.ColumnCount; j++)
+                        {
+                            <td class="activeSchematicAreaTableColumn"></td>
+                        }
+                    }
+                </tr>
+            }
+        }
+        </table>
     </div>
 
     @section Scripts {

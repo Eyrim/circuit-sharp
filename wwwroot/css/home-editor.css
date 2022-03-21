@@ -1,5 +1,5 @@
 .activeSchematicArea {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     background-image: url("https://localhost:44338/Home/MissingTexture");
@@ -11,5 +11,36 @@
 .component {
     position: absolute; /* Makes the component react to left:; and top:; */
 }
-
 /* https://css-tricks.com/perfect-full-page-background-image/ */
+
+.componentButtonContainer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 20%;
+    min-height: 100%;
+}
+
+.activeSchematicAreaTable {
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    right: 0;
+    top: 0;
+}
+
+.activeSchematicAreaRow {
+    width: 100%;
+    height: 20%; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.activeSchematicAreaColumn {
+    width: 20%;
+    height: 100%; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
+    position: absolute;
+    right: 0;
+    top: 0;
+}

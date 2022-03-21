@@ -16,10 +16,21 @@ namespace CircuitSharp.SchematicEditor.src.Components
 
         public double Value { get; set; }
 
+        /// <summary>
+        /// The index of the next component in the Circuit list
+        /// </summary>
+        public List<int> IndexesOfNext { get; set; }
+
         public RotationEnum Rotation { get; set; }
 
         public Wire LeadWire { get; set; }
         
         public Wire TrailWire { get; set; }
+
+
+        public Component()
+        {
+            IndexesOfNext = new List<int>();
+        }
     }
 }

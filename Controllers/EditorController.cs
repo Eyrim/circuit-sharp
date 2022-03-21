@@ -46,8 +46,6 @@ namespace CircuitSharp.Controllers
                 case "0":
                     GenericResistor r = new GenericResistor();
 
-                    EditorModel.Circuit.AddNode(ref r);
-
                     break;
             }
         }

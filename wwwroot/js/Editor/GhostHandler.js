@@ -72,7 +72,6 @@ window.onload = () => {
                 document.addEventListener('mousemove', mouseMoveCallbackFunc);
 
                 //TODO: Validate this for if the mouse was clicked within the active area
-                // For testing, the active area is the entire page, but this will change in Prod
                 // When the user clicks while a ghost is drawn on the mouse position
                 document.addEventListener('click', mouseClickCallbackFunc); // This is an Ostrich, ignoring the error until it becomes a problem
             }

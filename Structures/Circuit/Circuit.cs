@@ -6,6 +6,9 @@ namespace CircuitSharp.Structures.Circuit
 {
     public class Circuit
     {
+        /// <summary>
+        /// Unordered list of the nodes in the circuit
+        /// </summary>
         private List<Component> Nodes;
 
 
@@ -13,13 +16,9 @@ namespace CircuitSharp.Structures.Circuit
         {
             this.Nodes = new List<Component>();
         }
-
-        public Circuit(List<Component> Nodes)
-        {
-            this.Nodes = Nodes;
-        }
       
-        public void AddNode(ref Component Node)
+
+        public void AddNode(Component Node)
         {
             if (Node == null)
                 throw new Exception("Node reference was null: ");
@@ -27,7 +26,13 @@ namespace CircuitSharp.Structures.Circuit
             Nodes.Add(Node);
         }
 
-        //TODO: Remove node
+        public void RemoveNode(int index)
+        {
+            // Guard statement
+            if (index < 0 || index > Nodes.Count - 1) { throw new IndexOutOfRangeException(); }
+
+            Nodes.RemoveAt(index);
+        }
 
         public bool TryGetNode(string UUID, out Component Node)
         {
@@ -47,10 +52,12 @@ namespace CircuitSharp.Structures.Circuit
 
             return false;
         }
-
-        public static void GetPath()
-        {
-            //
-        }
     }
 }
+/*
+ * Pass in list of connections as grid coordinates
+ * 
+ * When adding new Node
+ *  - POST the coord
+ *  - Work out connections based on existing list, can only be in one of 4 dirs
+ */
