@@ -18,134 +18,26 @@ window.onload = () => {
 
         // The container with the buttons to spawn an element within them
         const componentButtonContainer = document.getElementById("componentButtonContainer");
-        const activeSchematicArea = document.getElementById("activeSchematicArea");
-        
-        // When an element in the button container is clicked
-        $(componentButtonContainer).click(async (event) => {
+        const activeAreaTable = document.getElementById("activeSchematicAreaTable");
 
-            // If the clicked element is a button
-            if (event.target.tagName == "BUTTON") {
 
-                // Used to iterate over the ghosts being trailed
-                let ghostCounter = 0;
+        const getTableRows = function () {
+            const els = document.getElementById("activeSchematicAreaTable");
+            let tableRows = [];
 
-                let typeID = getTypeIDFromElID(event.target.id);
-
-                // The url of the img src
-                let imgUrl = 'https://localhost:44338/Editor/GetImgUrlFromTypeID?TypeID=' + typeID;
-
-                // Previous mouse positions
-                    // Used to detect if first click or not
-                let prevMouseX = undefined;
-                let prevMouseY = undefined;
-
-                const mouseClickCallbackFunc = function (event) {
-                    // If the click occurs when over the table
-                    if ($(".activeSchematicAreaRow:hover").length != 0) { //TODO: Places when not over table too, FIX
-                        console.log("test");
-                        placeComponent(event.clientX, event.clientY, getImgUrlFromParent(activeSchematicArea), ghostCounter, activeSchematicArea);
-                        removeComponentGhostByID(ghostCounter, activeSchematicArea);
-
-                        // I have no idea why, but removing this line breaks everything
-                        document.removeEventListener('mousemove', mouseMoveCallbackFunc); //TODO: FIX
-
-                        document.removeEventListener('click', mouseClickCallbackFunc);
-                    }
-                }
-
-                const mouseMoveCallbackFunc = function (event) {
-                    // If movement occurs over table
-                    if ($(".activeSchematicAreaTable:hover").length != 0) {
-                        if (prevMouseX == undefined || prevMouseY == undefined) {
-                            // Set previous mouse move
-                            prevMouseX = event.clientX;
-                            prevMouseY = event.clientY;
-                        } else {
-                            // Remove the ghost drawn by the last mouse movement
-                            // Only if this isn't the first mouse movement
-                            removeComponentGhostByID(ghostCounter, activeSchematicArea);
-                        }
-
-                        drawComponentGhost(event.clientX, event.clientY, imgUrl, ghostCounter, activeSchematicArea);
-
-                        ghostCounter += 1;
-                    }
-                }
-
-                console.log("Component Button ${event.target.id} cicked");
-                event.stopPropagation();
-
-                // Every time the mouse moves
-                document.addEventListener('mousemove', mouseMoveCallbackFunc);
-
-                //TODO: Validate this for if the mouse was clicked within the active area
-                // When the user clicks while a ghost is drawn on the mouse position
-                document.addEventListener('click', mouseClickCallbackFunc); // This is an Ostrich, ignoring the error until it becomes a problem
+            //TODO: Unhardcode this
+            for (let i = 0; i < 5; i++) {
+                tableRows.push(els.children[0].children[i]);
             }
-        })
 
-        function getImgUrlFromParent(parent) {
-            /*
-            let el = document.getElementById(id);
-
-            if (el.tagName === "IMG") {
-                return el.src;
-            } else {
-                throw new Error("Element was not IMG, couldn't retrieve src");
-            }
-            */
-            let children = parent.children;
-            for (let i = 0; i < children.length; i++) {
-                if (children[i].nodeName === "IMG") {
-                    return children[i].currentSrc;
-                }
-            }
+            // One row
+            //console.log(els.children[0].children[0]);
+            return tableRows;
         }
-
-        function placeComponent(xPos, yPos, imgUrl, id, parent) {
-            let component = document.createElement('img');
-            component.src = imgUrl;
-            component.style.left = xPos + "px";
-            component.style.top = yPos + "px";
-            component.id = id;
-            component.className = "component";
-
-            parent.appendChild(component);
-
-            let TypeID = component.src.split('=')[1];
-
-            console.log(NotifyControllerOfPlace(TypeID));
-        }
-
-        async function NotifyControllerOfPlace(TypeID) {
-            
-            fetch('https://localhost:44338/Editor/PlaceComponent?TypeID=' + TypeID, {
-                method: 'POST',
-                body: '',
-                headers: {
-                    'Content-type': 'application/json'
-                }
-
-            }).then((response) => {
-                if (response.ok) {
-                    return response.ok;
-                }
-                return Promise.reject(response);
-
-            }).then(() => {
-                console.log("Controller notified");
-
-            }).catch((error) => {
-                console.warn(error);
-            });
-        }
-        
-
-        function getTypeIDFromElID(id) {
+        const getTypeIDFromElID = function (id) {
             return id.split("-")[1];
         }
-
-        function drawComponentGhost(xPos, yPos, url, id, parent) {
+        const drawComponentGhost = function (xPos, yPos, url, id, parent) {
             let ghost = document.createElement('img');
             ghost.src = url;
             ghost.style.left = xPos + "px";
@@ -153,11 +45,11 @@ window.onload = () => {
             ghost.id = id;
             ghost.className = "component";
             ghost.style.opacity = "80%";
+            ghost.style.zIndex = "9999999";
 
             parent.appendChild(ghost);
         }
-
-        function removeComponentGhostByID(id, parent) {
+        const removeComponentGhostByID = function (id, parent) {
             // The last element drawn
             id -= 1;
             let el = document.getElementById(id);
@@ -168,5 +60,59 @@ window.onload = () => {
                 parent.removeChild(el);
             }
         }
+        const sleep = function (milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        } /* https://www.sitepoint.com/delay-sleep-pause-wait/ */
+        const attachMousemoveHandlers = function (els, imgUrl) {
+            let testID = 0;
+            $("#activeSchematicAreaTable").mousemove((event) => {
+                //event.target.id
+
+                if (event.target.id != "activeSchematicAreaTable") {
+                    drawComponentGhost(event.clientX, event.clientY, imgUrl, testID, document.getElementById(event.target.id));
+                    sleep(100);
+                    removeComponentGhostByID(testID, document.getElementById(event.target.id));
+                    testID++;
+                }
+            })
+
+            /*
+            let id = "";
+            let testID = 0;
+
+            // For every row
+            for (let i = 0; i < els.length; i++) {
+                // For every data
+                for (let j = 0; j < els[i].children.length; j++) {
+                    id = "#" + els[i].id;
+                    $(id).mousemove((event) => {
+                        drawComponentGhost(event.clientX, event.clientY, imgUrl, testID, els[i]);
+                        removeComponentGhostByID(testID, els[i]);
+                        testID++;
+                    });
+                }
+            }
+            */
+        }
+
+
+        // 2d array to store the table rows and their data
+        let table = getTableRows();
+
+        // When an element in the component button container is clicked
+        $(componentButtonContainer).click(async (event) => {
+            // If the element was a button
+            if (event.target.tagName == "BUTTON") {
+                let typeID = getTypeIDFromElID(event.target.id);
+
+                let imgUrl = 'https://localhost:44338/Editor/GetImgUrlFromTypeID?TypeID=' + typeID;
+
+                attachMousemoveHandlers(table, imgUrl);
+            }
+        })
     })
 }
