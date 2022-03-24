@@ -16,10 +16,9 @@ window.onload = () => {
     fallback.ready(['jQuery'], (jQuery) => {
         console.log("Loaded jQuery");
 
-        // The container with the buttons to spawn an element within them
+
         const componentButtonContainer = document.getElementById("componentButtonContainer");
         const activeAreaTable = document.getElementById("activeSchematicAreaTable");
-
 
         const getTableRows = function () {
             const els = document.getElementById("activeSchematicAreaTable");
@@ -34,32 +33,38 @@ window.onload = () => {
             //console.log(els.children[0].children[0]);
             return tableRows;
         }
-        const getTypeIDFromElID = function (id) {
-            return id.split("-")[1];
-        }
-        const drawComponentGhost = function (xPos, yPos, url, id, parent) {
-            let ghost = document.createElement('img');
-            ghost.src = url;
-            ghost.style.left = xPos + "px";
-            ghost.style.top = yPos + "px";
-            ghost.id = id;
-            ghost.className = "component";
-            ghost.style.opacity = "80%";
-            ghost.style.zIndex = "9999999";
 
-            parent.appendChild(ghost);
-        }
-        const removeComponentGhostByID = function (id, parent) {
-            // The last element drawn
-            id -= 1;
-            let el = document.getElementById(id);
+        const attachMouseMoveHandlers = function (els) {
+            let testID = 0;
+            let currentlyOver;
+            let previouslyOver;
 
-            // Bandaid solution, not proud of it but I'm desperate 
-            if (el != undefined) {
-                // Remove the last element
-                parent.removeChild(el);
+            $("#activeSchematicAreaTable").mousemove((event) => {
+                event.stopPropagation();
+                if (event.target.id != "activeSchematicAreaTable") {
+                    // Draw component
+                    drawComponent(event.target.id, testID);
+                    sleep(5000);
+                    // Remove component
+                    removeComponent(event.target.id, testID);
+                }
+            })
+        }
+
+        const removeComponent = function (id, toRemove) {
+            let parent = document.getElementById(id);
+            let children = parent.children;
+            //toRemove -= 1;
+
+            for (let i = 0; i < children.length; i++) {
+                if (children[i].id == toRemove) {
+                    parent.removeChild(children[i]);
+                    console.log("removed component");
+                    return;
+                }
             }
         }
+
         const sleep = function (milliseconds) {
             const date = Date.now();
             let currentDate = null;
@@ -67,52 +72,21 @@ window.onload = () => {
                 currentDate = Date.now();
             } while (currentDate - date < milliseconds);
         } /* https://www.sitepoint.com/delay-sleep-pause-wait/ */
-        const attachMousemoveHandlers = function (els, imgUrl) {
-            let testID = 0;
-            $("#activeSchematicAreaTable").mousemove((event) => {
-                //event.target.id
 
-                if (event.target.id != "activeSchematicAreaTable") {
-                    drawComponentGhost(event.clientX, event.clientY, imgUrl, testID, document.getElementById(event.target.id));
-                    sleep(100);
-                    removeComponentGhostByID(testID, document.getElementById(event.target.id));
-                    testID++;
-                }
-            })
+        const drawComponent = function (id, toAdd) {
+            let container = document.getElementById(id);
+            let el = document.createElement('img');
+            let url = `https://localhost:44338/Editor/GenericResistorImg`;
 
-            /*
-            let id = "";
-            let testID = 0;
+            el.src = url;
+            el.id = toAdd;
+            el.style.zIndex = "9999999";
 
-            // For every row
-            for (let i = 0; i < els.length; i++) {
-                // For every data
-                for (let j = 0; j < els[i].children.length; j++) {
-                    id = "#" + els[i].id;
-                    $(id).mousemove((event) => {
-                        drawComponentGhost(event.clientX, event.clientY, imgUrl, testID, els[i]);
-                        removeComponentGhostByID(testID, els[i]);
-                        testID++;
-                    });
-                }
-            }
-            */
+            container.appendChild(el);
+            console.log("appended component");
         }
 
+        attachMouseMoveHandlers(getTableRows());
 
-        // 2d array to store the table rows and their data
-        let table = getTableRows();
-
-        // When an element in the component button container is clicked
-        $(componentButtonContainer).click(async (event) => {
-            // If the element was a button
-            if (event.target.tagName == "BUTTON") {
-                let typeID = getTypeIDFromElID(event.target.id);
-
-                let imgUrl = 'https://localhost:44338/Editor/GetImgUrlFromTypeID?TypeID=' + typeID;
-
-                attachMousemoveHandlers(table, imgUrl);
-            }
-        })
     })
 }

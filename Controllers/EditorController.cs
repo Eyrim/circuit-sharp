@@ -35,5 +35,19 @@ namespace CircuitSharp.Controllers
         {
 
         }
+
+        /// <summary>
+        /// TEMP, LITERALLY JUST WROTE THIS TO TEST A JS THING
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GenericResistorImg()
+        {
+            string dir = @"GenericData/Imgs/GenericResistor";
+
+            // Combines the directory and the filename to make a proper path
+            string path = Path.Combine(dir + ".png");
+
+            return base.File(path, "image/png");
+        }
     }
 }
