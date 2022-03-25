@@ -16,8 +16,9 @@ namespace CircuitSharp.Models
 
         //TODO: Implement way of knowing screen size, JS update controller, updates model
 
-        public static void AddComponent(ref Component ToAdd)
-        { 
+        public static void AddComponent(Component ToAdd)
+        {
+            Circuit.AddNode(ToAdd);
         }
     }
 }

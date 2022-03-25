@@ -28,8 +28,12 @@ namespace CircuitSharp.SchematicEditor.src.Components
         public Wire TrailWire { get; set; }
 
 
-        public Component()
+        public Component(Point Position, double Value, RotationEnum Rotation)
         {
+            this.Position = Position;
+            this.Value = Value;
+            this.Rotation = Rotation;
+
             IndexesOfNext = new List<int>();
         }
     }
