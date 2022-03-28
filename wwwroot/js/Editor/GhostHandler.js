@@ -38,21 +38,25 @@ window.onload = () => {
             let testID = 0;
             let currentlyOver;
             let previouslyOver;
+            let drawnOver;
             let drawn = false;
 
             $("#activeSchematicAreaTable").mousemove((event) => {
                 event.stopPropagation();
                 if (event.target.id != "activeSchematicAreaTable") {
+                    console.log("Target ID: " + event.target.id);
+                    //currentlyOver = event.target.id;
                     if (!(drawn)) {
                         // Draw component
                         drawComponent(event.target.id, testID);
                         drawn = true;
-                        currentlyOver = event.target.id;
+                        drawnOver = event.target.id;
                     }
 
-                    if (currentlyOver != event.target.id) {
+                    if (drawnOver != event.target.id) {
                         // Remove component
                         removeComponent(event.target.id, testID);
+                        drawn = false;
                     }
                 }
             })

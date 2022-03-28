@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using CircuitSharp.SchematicEditor.src.Components;
+using CircuitSharp.Structures;
+using CircuitSharp.SchematicEditor.src.Components.Enumerators;
+using CircuitSharp.Util;
 
 namespace CircuitSharp.SchematicEditor.src.Components
 {
@@ -18,15 +21,6 @@ namespace CircuitSharp.SchematicEditor.src.Components
             RotationEnum Rotation) : base(Position, Value, Rotation)
         {
             this.ComponentsAtJunction = new List<Component>();
-        }
-
-        /// <summary>
-        /// Constructs a new junction object
-        /// </summary>
-        /// <param name="ComponentsAtJunction">List of components connected to the junction</param>
-        public Junction(List<Component> ComponentsAtJunction)
-        {
-            this.ComponentsAtJunction = ComponentsAtJunction;
         }
 
 

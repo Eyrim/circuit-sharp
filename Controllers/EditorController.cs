@@ -48,13 +48,13 @@ namespace CircuitSharp.Controllers
             {
                 // Generic Resistor
                 case "0":
-                    GenericResistor gr = new GenericResistor();
-                    EditorModel.AddComponent(gr);
+                    //GenericResistor gr = new GenericResistor();
+                    //EditorModel.AddComponent(gr);
                     break;
 
                 case "1":
-                    Wire w = new Wire();
-                    EditorModel.AddComponent(w);
+                    //Wire w = new Wire();
+                    //EditorModel.AddComponent(w);
                     break;
 
                 default:
