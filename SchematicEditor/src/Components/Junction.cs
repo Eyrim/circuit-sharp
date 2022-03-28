@@ -14,7 +14,8 @@ namespace CircuitSharp.SchematicEditor.src.Components
         /// <summary>
         /// Constructs a new junction object
         /// </summary>
-        public Junction()
+        public Junction(Point Position, double Value,
+            RotationEnum Rotation) : base(Position, Value, Rotation)
         {
             this.ComponentsAtJunction = new List<Component>();
         }
