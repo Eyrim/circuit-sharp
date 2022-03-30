@@ -34,15 +34,33 @@ window.onload = () => {
             return tableRows;
         }
 
+        const populateTableRows = function () {
+            let rows = getTableRows();
+            let children;
+            let el;
+
+            for (let i = 0; i < rows.length; i++) {
+                children = rows[i].children;
+
+                for (let j = 0; j < children.length; j++) {
+                    el = document.createElement('div');
+                    el.className = "emptyComponent";
+
+                    children[j].appendChild(el);
+                }
+            }
+        }
+
+
         // https://www.geeksforgeeks.org/remove-all-the-child-elements-of-a-dom-node-in-javascript/#:~:text=Child%20nodes%20can%20be%20removed,which%20produces%20the%20same%20output. theft :D
         const removeAllChildren = function (parentID) {
-            var e = document.querySelector(parentID);
+            var e = document.getElementById(parentID);
 
             //e.firstElementChild can be used.
-            var child = e.lastElementChild;
+            var child = e.firstElementChild;
             while (child) {
                 e.removeChild(child);
-                child = e.lastElementChild;
+                child = e.firstElementChild;
             }
         }
 
@@ -59,6 +77,7 @@ window.onload = () => {
                     console.log("Target ID: " + event.target.id);
                     //currentlyOver = event.target.id;
                     if (!(drawn)) {
+                        removeAllChildren(event.target.id);
                         // Draw component
                         drawComponent(event.target.id, testID);
                         drawn = true;
@@ -68,7 +87,7 @@ window.onload = () => {
                     if (drawnOver != event.target.id) {
                         // Remove component
                         removeAllChildren(event.target.id);
-
+                        populateTableRows();
                         //removeComponent(event.target.id, testID);
                         drawn = false;
                     }
@@ -112,6 +131,8 @@ window.onload = () => {
             console.log("appended component");
         }
 
+
+        populateTableRows();
         attachMouseMoveHandlers(getTableRows());
 
     })
