@@ -34,6 +34,18 @@ window.onload = () => {
             return tableRows;
         }
 
+        // https://www.geeksforgeeks.org/remove-all-the-child-elements-of-a-dom-node-in-javascript/#:~:text=Child%20nodes%20can%20be%20removed,which%20produces%20the%20same%20output. theft :D
+        const removeAllChildren = function (parentID) {
+            var e = document.querySelector(parentID);
+
+            //e.firstElementChild can be used.
+            var child = e.lastElementChild;
+            while (child) {
+                e.removeChild(child);
+                child = e.lastElementChild;
+            }
+        }
+
         const attachMouseMoveHandlers = function (els) {
             let testID = 0;
             let currentlyOver;
@@ -43,7 +55,7 @@ window.onload = () => {
 
             $("#activeSchematicAreaTable").mousemove((event) => {
                 event.stopPropagation();
-                if (event.target.id != "activeSchematicAreaTable") {
+                if (event.target.id != "activeSchematicAreaTable" && event.target.tagName != "IMG") {
                     console.log("Target ID: " + event.target.id);
                     //currentlyOver = event.target.id;
                     if (!(drawn)) {
@@ -55,7 +67,9 @@ window.onload = () => {
 
                     if (drawnOver != event.target.id) {
                         // Remove component
-                        removeComponent(event.target.id, testID);
+                        removeAllChildren(event.target.id);
+
+                        //removeComponent(event.target.id, testID);
                         drawn = false;
                     }
                 }
@@ -92,6 +106,7 @@ window.onload = () => {
             el.src = url;
             el.id = toAdd;
             el.style.zIndex = "9999999";
+            el.style.filter = "opacity(50%)";
 
             container.appendChild(el);
             console.log("appended component");

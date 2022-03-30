@@ -32,6 +32,7 @@
     height: 100%;
     right: 0;
     top: 0;
+    table-layout: fixed;
 }
 
 .activeSchematicAreaRow {
@@ -42,6 +43,7 @@
     top: 0;
     border-color: red;
     border-width: 10px;
+    table-layout: fixed;
 }
 
 .activeSchematicAreaColumn {
@@ -52,4 +54,5 @@
     top: 0;
     border-color: blue;
     border-width: 10px;
+    table-layout: fixed;
 }
