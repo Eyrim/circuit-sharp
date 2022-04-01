@@ -11,13 +11,17 @@
     z-index: 99999999 !important;
     max-width: 100% !important;
     max-height: 100% !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
-    position: fixed;
+    min-width: 100% !important;
+    min-height: 100% !important;
     right: 0;
     top: 0;
 }
 
 .component {
     position: absolute; /* Makes the component react to left:; and top:; */
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 /* https://css-tricks.com/perfect-full-page-background-image/ */
 

@@ -137,3 +137,68 @@ window.onload = () => {
 
     })
 }
+
+/* Fiddle
+ * 
+ * const removeAllChildren = function(parentID) {
+  var e = document.getElementById(parentID);
+
+  //e.firstElementChild can be used.
+  var child = e.firstElementChild;
+  while (child) {
+    e.removeChild(child);
+    child = e.firstElementChild;
+  }
+}
+const drawComponent = function(parentID, IDToAdd) {
+  let container = document.getElementById(parentID);
+  let el = document.createElement('img');
+  let url = `https://www.w3.org/People/mimasa/test/imgformat/img/w3c_home.png`;
+
+  el.src = url;
+  el.id = IDToAdd;
+  el.style.zIndex = "9999999";
+  el.style.filter = "opacity(50%)";
+
+  container.appendChild(el);
+  console.log("appended component");
+}
+
+$("#activeSchematicAreaTable").mousemove((event) => {
+  event.stopPropagation();
+  console.log("Mouse moved on: " + event.target.id);
+
+  let currentElementInData;
+  let lastDrawnOn;
+
+  // If mouse moved on table data
+  if (event.target.id != "activeSchematicAreaTable" && event.target.tagName != "IMG") {
+    // Save current element in data
+    currentElementInData = event.target.children[0];
+
+    // Remove current element in data
+    removeAllChildren(event.target.id);
+
+    // Draw hover element in data
+    drawComponent(event.target.id, "ghost");
+    lastDrawnOn = event.target;
+
+    // Wait for mouse click
+    event.target.addEventListener("mouseClick", mouseClickCallback);
+
+    // Draw hover element properly
+    var mouseClickCallback = function() {
+      console.log("TODO: Draw component properly");
+    }
+
+    // Wait for mouse to move out of that cell
+    if (event.target.id !== lastDrawnOn.id) {
+      // Remove current element in old cell
+      removeAllChildren(lastDrawnOn);
+      // Draw old element saved
+      lastDrawnOn.appendChild(currentElementInData);
+    }
+  }
+});
+
+ */
