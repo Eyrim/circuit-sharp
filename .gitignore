@@ -3,3 +3,4 @@ bin/
 obj/
 .vscode/
 CircuitSharp.sln
+.vs/
