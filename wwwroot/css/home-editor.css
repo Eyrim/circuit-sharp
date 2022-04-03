@@ -7,15 +7,6 @@
     min-width: 100%;
     min-height: 100%;
 }
-.emptyComponent {
-    z-index: 99999999 !important;
-    max-width: 100% !important;
-    max-height: 100% !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
-    min-width: 100% !important;
-    min-height: 100% !important;
-    right: 0;
-    top: 0;
-}
 
 .component {
     position: absolute; /* Makes the component react to left:; and top:; */
@@ -48,23 +39,19 @@
 }
 
 .activeSchematicAreaRow {
-    max-width: 100%;
-    max-height: 20%; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
+    max-width: 100% !important;
+    max-height: 20% !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
     position: fixed;
     right: 0;
     top: 0;
-    border-color: red;
-    border-width: 10px;
     table-layout: fixed;
 }
 
 .activeSchematicAreaColumn {
-    max-width: 20%;
-    max-height: 100%; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
+    max-width: 20% !important;
+    max-height: 100% !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
     position: fixed;
     right: 0;
     top: 0;
-    border-color: blue;
-    border-width: 10px;
     table-layout: fixed;
 }
