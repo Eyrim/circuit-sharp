@@ -80,14 +80,19 @@ window.onload = () => {
             placeComponent(event.currentTarget.id);
         }
 
-        const placeComponent = function (parentID) {
+        const placeComponent = function (parentID, typeID) {
             let container = document.getElementById(parentID);
+
+            if (container.childElementCount > 2) {
+                for (let i = 0; i < container.children.item(0))
+            }
+
             let el = document.createElement('img');
             console.log(el);
             let url = `https://localhost:44338/Editor/GenericResistorImg`;
 
             el.src = url;
-            el.id = "boop";
+            el.id = typeID;
             el.style.zIndex = "9999999";
 
             container.appendChild(el);
