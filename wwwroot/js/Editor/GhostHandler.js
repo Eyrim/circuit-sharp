@@ -43,8 +43,8 @@ window.onload = () => {
                 children = rows[i].children;
 
                 for (let j = 0; j < children.length; j++) {
-                    el = document.createElement('div');
-                    el.className = "emptyComponent";
+                    el = document.createElement('IMG');
+                    el.src = `https://localhost:44338/Editor/TransparentImg`;
 
                     children[j].appendChild(el);
                 }
@@ -67,7 +67,6 @@ window.onload = () => {
 
         const enterHandler = function (event) {
             drawComponent(event.target.id, "testID");
-            console.log("Appended To: " + event.target.id);
         }
 
         const leaveHandler = function (event) {
@@ -77,15 +76,12 @@ window.onload = () => {
         const attachHandlers = function () {
             // Attaches mousemove listeners
             for (let i = 0; i <= 24; i++) {
-                //document.getElementById(i).addEventListener("mousemove", moveHandler);
                 document.getElementById(i).addEventListener("mouseenter", enterHandler);
                 document.getElementById(i).addEventListener("mouseleave", leaveHandler);
             }
         }
 
-
-
+        populateTableRows();
         attachHandlers();
-
     })
 }
