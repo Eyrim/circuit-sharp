@@ -66,11 +66,31 @@ window.onload = () => {
         }
 
         const enterHandler = function (event) {
-            drawComponent(event.target.id, "testID");
+            console.log("Entered: " + event.currentTarget.id);
+            drawComponent(event.currentTarget.id, "testID");
+        }
+        const leaveHandler = function (event) {
+            console.log("Left: " + event.target.id);
+            document.getElementById(event.target.id).removeChild(document.getElementById("testID"));
         }
 
-        const leaveHandler = function (event) {
-            document.getElementById(event.target.id).removeChild(document.getElementById("testID"));
+        const mouseDownHandler = function (event) {
+            console.log("Clicked: " + event.currentTarget.id);
+
+            placeComponent(event.currentTarget.id);
+        }
+
+        const placeComponent = function (parentID) {
+            let container = document.getElementById(parentID);
+            let el = document.createElement('img');
+            console.log(el);
+            let url = `https://localhost:44338/Editor/GenericResistorImg`;
+
+            el.src = url;
+            el.id = "boop";
+            el.style.zIndex = "9999999";
+
+            container.appendChild(el);
         }
 
         const attachHandlers = function () {
@@ -78,6 +98,7 @@ window.onload = () => {
             for (let i = 0; i <= 24; i++) {
                 document.getElementById(i).addEventListener("mouseenter", enterHandler);
                 document.getElementById(i).addEventListener("mouseleave", leaveHandler);
+                document.getElementById(i).addEventListener("mousedown", mouseDownHandler);
             }
         }
 
