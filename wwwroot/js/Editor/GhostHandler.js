@@ -51,6 +51,17 @@ window.onload = () => {
             }
         }
 
+        const removePlacedComponentsInCell = function (id) {
+            let parent = document.getElementById(id);
+            let children = parent.children;
+
+            for (let i = 0; i < children.length; i++) {
+                if (children[i].id.split('-')[0].toLowerCase() == "placed") {
+                    parent.removeChild(children[i]);
+                }
+            }
+        }
+
         const drawComponent = function (id, toAdd) {
             let container = document.getElementById(id);
             let el = document.createElement('img');
@@ -66,30 +77,40 @@ window.onload = () => {
         }
 
         const enterHandler = function (event) {
-            console.log("Entered: " + event.currentTarget.id);
-            drawComponent(event.currentTarget.id, "testID");
+            if (document.getElementById(event.currentTarget.id).tagName != "IMG") {
+                if (document.getElementById(event.currentTarget.id).children.length > 1) {
+                    try {
+                        document.getElementById(event.currentTarget.id).removeChild(document.getElementById("Boop")); //HERE
+                    } catch {
+                    }
+                } else {
+                    console.log("Entered: " + event.currentTarget.id);
+                    drawComponent(event.currentTarget.id, "GhostTest");
+                }
+            }
         }
         const leaveHandler = function (event) {
-            console.log("Left: " + event.target.id);
-            document.getElementById(event.target.id).removeChild(document.getElementById("testID"));
+            console.log("Left: " + event.currentTarget.id);
+            try {
+                document.getElementById(event.currentTarget.id).removeChild(document.getElementById("GhostTest")); //HERE
+            } catch {
+            }
         }
 
         const mouseDownHandler = function (event) {
-            console.log("Clicked: " + event.currentTarget.id);
+            // Remove other components with id starting with "placed"
+            removePlacedComponentsInCell(event.currentTarget.id);
 
-            placeComponent(event.currentTarget.id);
+            console.log("Clicked: " + event.currentTarget.id);
+            // Draw new component
+            placeComponent(event.currentTarget.id, "placed-1");
         }
 
         const placeComponent = function (parentID, typeID) {
             let container = document.getElementById(parentID);
-
-            if (container.childElementCount > 2) {
-                for (let i = 0; i < container.children.item(0))
-            }
-
+            // Draw Component
             let el = document.createElement('img');
-            console.log(el);
-            let url = `https://localhost:44338/Editor/GenericResistorImg`;
+            let url = `https://www.w3.org/People/mimasa/test/imgformat/img/w3c_home.png`;
 
             el.src = url;
             el.id = typeID;
