@@ -66,6 +66,7 @@ namespace CircuitSharp.Controllers
         /// TEMP, LITERALLY JUST WROTE THIS TO TEST A JS THING
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult GenericResistorImg()
         {
             string dir = @"GenericData/Imgs/GenericResistor";
