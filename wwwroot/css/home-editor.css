@@ -20,13 +20,26 @@
     position: absolute;
     left: 0;
     top: 0;
-    min-width: 20%;
-    min-height: 100%;
+    width: 20%;
+    height: 100%;
 }
 
 .componentButton {
     z-index: 999;
     position: absolute;
+}
+
+.componentButtonTable {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.componentButtonTableRow {
+    width: 100%;
+}
+
+.componentButtonTableData {
+    width: 50%;
 }
 
 .activeSchematicAreaTable {
