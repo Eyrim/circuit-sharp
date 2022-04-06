@@ -63,7 +63,37 @@ namespace CircuitSharp.Controllers
         }
 
         /// <summary>
-        /// TEMP, LITERALLY JUST WROTE THIS TO TEST A JS THING
+        /// Returns an image of a generic resistor
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult GenericResistorImg()
+        {
+            string dir = @"GenericData/Imgs/GenericResistor";
+
+            // Combines the directory and the filename to make a proper path
+            string path = Path.Combine(dir + ".png");
+
+            return base.File(path, "image/png");
+        }
+
+        /// <summary>
+        /// Returns an image of a Variable Resistor
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult VariableResistorImg()
+        {
+            string dir = @"GenericData/Imgs/VariableResistor";
+
+            // Combines the directory and the filename to make a proper path
+            string path = Path.Combine(dir + ".png");
+
+            return base.File(path, "image/png");
+        }
+
+        /// <summary>
+        /// Returns an image of a Light Dependent Resistor
         /// </summary>
         /// <returns></returns>
         [HttpGet]
