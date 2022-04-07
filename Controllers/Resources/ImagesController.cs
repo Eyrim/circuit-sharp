@@ -28,7 +28,7 @@ namespace CircuitSharp.Controllers
         /// Serves image of a generic resistor
         /// </summary>
         /// <returns>ActionResult of a generic resistor image file</returns>
-        //GET: Image/GenericResistor
+        //GET: Images/GenericResistor
         [HttpGet]
         public ActionResult GenericResistor()
         {
@@ -39,7 +39,7 @@ namespace CircuitSharp.Controllers
         /// Serves image of a wire
         /// </summary>
         /// <returns>ActionResult of a wire image file</returns>
-        //GET: Image/Wire
+        //GET: Images/Wire
         [HttpGet]
         public ActionResult Wire()
         {

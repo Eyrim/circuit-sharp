@@ -44,7 +44,7 @@ window.onload = () => {
 
                 for (let j = 0; j < children.length; j++) {
                     el = document.createElement('IMG');
-                    el.src = `https://localhost:44338/Editor/TransparentImg`;
+                    el.src = `https://localhost:44338/Images/Transparent`;
 
                     children[j].appendChild(el);
                 }
@@ -65,7 +65,7 @@ window.onload = () => {
         const drawComponent = function (id, toAdd) {
             let container = document.getElementById(id);
             let el = document.createElement('img');
-            let url = `https://localhost:44338/Editor/GenericResistorImg`;
+            let url = `https://localhost:44338/Images/GenericResistor`;
 
             el.src = url;
             el.id = toAdd;
