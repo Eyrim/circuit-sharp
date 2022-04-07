@@ -16,6 +16,8 @@ window.onload = () => {
     fallback.ready(['jQuery'], (jQuery) => {
         console.log("Loaded jQuery");
 
+        let typeID = "";
+
 
         const componentButtonContainer = document.getElementById("componentButtonContainer");
         const activeAreaTable = document.getElementById("activeSchematicAreaTable");
@@ -65,7 +67,22 @@ window.onload = () => {
         const drawComponent = function (id, toAdd) {
             let container = document.getElementById(id);
             let el = document.createElement('img');
-            let url = `https://localhost:44338/Images/GenericResistor`;
+            let url = `https://localhost:44338/Images/`;
+
+            console.log(typeID);
+
+            switch (typeID) {
+                case "0":
+                    url += "GenericResistor";
+                    break;
+
+                case "1":
+                    url += "Wire";
+                    break;
+
+                default:
+                    console.log("Failed");
+            }
 
             el.src = url;
             el.id = toAdd;
@@ -77,16 +94,14 @@ window.onload = () => {
         }
 
         const enterHandler = function (event) {
-            if (document.getElementById(event.currentTarget.id).tagName != "IMG") {
-                if (document.getElementById(event.currentTarget.id).children.length > 1) {
-                    try {
-                        document.getElementById(event.currentTarget.id).removeChild(document.getElementById("Boop")); //HERE
-                    } catch {
-                    }
-                } else {
-                    console.log("Entered: " + event.currentTarget.id);
-                    drawComponent(event.currentTarget.id, "GhostTest");
+            if (document.getElementById(event.currentTarget.id).children.length > 1) {
+                try {
+                    document.getElementById(event.currentTarget.id).removeChild(document.getElementById("placedComponent-" + typeID)); //HERE
+                } catch {
                 }
+            } else {
+                console.log("Entered: " + event.currentTarget.id);
+                drawComponent(event.currentTarget.id, "GhostTest");
             }
         }
         const leaveHandler = function (event) {
@@ -103,17 +118,31 @@ window.onload = () => {
 
             console.log("Clicked: " + event.currentTarget.id);
             // Draw new component
-            placeComponent(event.currentTarget.id, "placed-1");
+            placeComponent(event.currentTarget.id, "placedComponent-" + typeID);
         }
 
-        const placeComponent = function (parentID, typeID) {
+        const placeComponent = function (parentID, elID) {
             let container = document.getElementById(parentID);
             // Draw Component
             let el = document.createElement('img');
-            let url = `https://www.w3.org/People/mimasa/test/imgformat/img/w3c_home.png`;
+            let url = `https://localhost:44338/Images/`;
+
+            switch (typeID) {
+                case "0":
+                    url += "GenericResistor";
+                    break;
+
+                case "1":
+                    url += "Wire";
+                    break;
+
+                default:
+                    console.log("Failed to get place url");
+                    break;
+            }
 
             el.src = url;
-            el.id = typeID;
+            el.id = elID;
             el.style.zIndex = "9999999";
 
             container.appendChild(el);
@@ -128,7 +157,20 @@ window.onload = () => {
             }
         }
 
+        const imgClicked = function (event) {
+            console.log("test:" + event.target.id);
+            typeID = event.target.id.split('-')[1];
+
+            attachHandlers();
+        }
+
+        const mainLoop = function () {
+            for (let i = 0; i < 4; i++) {
+                $("#component-" + i).click(imgClicked);
+            }
+        }
+
         populateTableRows();
-        attachHandlers();
+        mainLoop();
     })
 }
