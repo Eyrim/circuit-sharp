@@ -44,7 +44,7 @@ window.onload = () => {
 
                 for (let j = 0; j < children.length; j++) {
                     el = document.createElement('IMG');
-                    el.src = `https://localhost:44338/Editor/TransparentImg`;
+                    el.src = `https://localhost:44338/Images/TransparentImg`;
 
                     children[j].appendChild(el);
                 }

@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="wwwroot\GenericData\Imgs\genericResistor.png" />
-    <None Include="wwwroot\GenericData\Imgs\1.png" />
+    <None Include="wwwroot\GenericData\Imgs\wire.png" />
     <None Include="wwwroot\GenericData\Imgs\staticResistor.psd" />
     <None Include="wwwroot\GenericData\Imgs\wire.psd" />
   </ItemGroup>
