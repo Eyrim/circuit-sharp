@@ -60,31 +60,6 @@ namespace CircuitSharp.Controllers
                 default:
                     break;
             }
-        }
-
-        /// <summary>
-        /// TEMP, LITERALLY JUST WROTE THIS TO TEST A JS THING
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public ActionResult GenericResistorImg()
-        {
-            string dir = @"GenericData/Imgs/GenericResistor";
-
-            // Combines the directory and the filename to make a proper path
-            string path = Path.Combine(dir + ".png");
-
-            return base.File(path, "image/png");
-        }
-
-        public ActionResult TransparentImg()
-        {
-            string dir = @"GenericData/Imgs/Transparent";
-
-            // Combines the directory and the filename to make a proper path
-            string path = Path.Combine(dir + ".png");
-
-            return base.File(path, "image/png");
-        }
+        }  
     }
 }
