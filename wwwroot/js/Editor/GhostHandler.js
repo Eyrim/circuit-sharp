@@ -52,14 +52,21 @@ window.onload = () => {
                 }
             }
         }
-
+        
         const removePlacedComponentsInCell = function (id) {
+            console.log("Removing components from: " + id);
+
             let parent = document.getElementById(id);
             let children = parent.children;
 
+            
+
             for (let i = 0; i < children.length; i++) {
-                if (children[i].id.split('-')[0].toLowerCase() == "placed") {
+                console.log("children[i].id = " + children[i].id);
+
+                if (children[i].id.split('-')[0] === "placedComponent") {
                     parent.removeChild(children[i]);
+                    console.log("Removed");
                 }
             }
         }
@@ -68,8 +75,6 @@ window.onload = () => {
             let container = document.getElementById(id);
             let el = document.createElement('img');
             let url = `https://localhost:44338/Images/`;
-
-            console.log(typeID);
 
             switch (typeID) {
                 case "0":
@@ -90,7 +95,6 @@ window.onload = () => {
             el.style.filter = "opacity(75%)";
 
             container.appendChild(el);
-            console.log("appended component");
         }
 
         const enterHandler = function (event) {
@@ -100,25 +104,22 @@ window.onload = () => {
                 } catch {
                 }
             } else {
-                console.log("Entered: " + event.currentTarget.id);
                 drawComponent(event.currentTarget.id, "GhostTest");
             }
         }
         const leaveHandler = function (event) {
-            console.log("Left: " + event.currentTarget.id);
             try {
                 document.getElementById(event.currentTarget.id).removeChild(document.getElementById("GhostTest")); //HERE
             } catch {
             }
         }
-
         const mouseDownHandler = function (event) {
-            // Remove other components with id starting with "placed"
-            removePlacedComponentsInCell(event.currentTarget.id);
+            // Remove other components with id starting with "placedcomponent"
+            removePlacedComponentsInCell(event.currentTarget.id); // Evaluating to the id of the parent
 
-            console.log("Clicked: " + event.currentTarget.id);
             // Draw new component
             placeComponent(event.currentTarget.id, "placedComponent-" + typeID);
+            console.log("Placed in: " + event.currentTarget.id);
         }
 
         const placeComponent = function (parentID, elID) {
@@ -158,7 +159,6 @@ window.onload = () => {
         }
 
         const imgClicked = function (event) {
-            console.log("test:" + event.target.id);
             typeID = event.target.id.split('-')[1];
 
             attachHandlers();
