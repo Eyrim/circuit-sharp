@@ -52,14 +52,14 @@ window.onload = () => {
                 }
             }
         }
-        
+
         const removePlacedComponentsInCell = function (id) {
             console.log("Removing components from: " + id);
 
             let parent = document.getElementById(id);
             let children = parent.children;
 
-            
+
 
             for (let i = 0; i < children.length; i++) {
                 console.log("children[i].id = " + children[i].id);
@@ -98,7 +98,7 @@ window.onload = () => {
         }
 
         const enterHandler = function (event) {
-            if (document.getElementById(event.currentTarget.id).children.length >2) {
+            if (document.getElementById(event.currentTarget.id).children.length > 2) {
                 try {
                     document.getElementById(event.currentTarget.id).removeChild(document.getElementById("placedComponent-" + typeID)); //HERE
                 } catch {
@@ -114,12 +114,15 @@ window.onload = () => {
             }
         }
         const mouseDownHandler = function (event) {
+            event.stopPropagation();
+
+
+            console.log("this.id: " + this.id);
             // Remove other components with id starting with "placedcomponent"
-            removePlacedComponentsInCell(event.currentTarget.id); // Evaluating to the id of the parent
+            removePlacedComponentsInCell(event.currentTarget.id);
 
             // Draw new component
-            placeComponent(event.currentTarget.id, "placedComponent-" + typeID);
-            console.log("Placed in: " + event.currentTarget.id);
+            placeComponent(this.id, "placedComponent-" + typeID);
         }
 
         const placeComponent = function (parentID, elID) {
@@ -147,8 +150,11 @@ window.onload = () => {
             el.style.zIndex = "9999999";
 
             container.appendChild(el);
+            console.log("Appeneded to: " + container.id);
+            console.log("Placed.id: " + el.id);
         }
 
+        // Listens on the cell, not the images in cell
         const attachHandlers = function () {
             // Attaches mousemove listeners
             for (let i = 0; i <= 24; i++) {
