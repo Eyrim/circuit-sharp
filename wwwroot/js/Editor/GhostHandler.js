@@ -87,14 +87,14 @@ window.onload = () => {
             el.src = url;
             el.id = toAdd;
             el.style.zIndex = "9999999";
-            el.style.filter = "opacity(50%)";
+            el.style.filter = "opacity(75%)";
 
             container.appendChild(el);
             console.log("appended component");
         }
 
         const enterHandler = function (event) {
-            if (document.getElementById(event.currentTarget.id).children.length > 1) {
+            if (document.getElementById(event.currentTarget.id).children.length >2) {
                 try {
                     document.getElementById(event.currentTarget.id).removeChild(document.getElementById("placedComponent-" + typeID)); //HERE
                 } catch {
