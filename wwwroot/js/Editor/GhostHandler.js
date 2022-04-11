@@ -59,14 +59,13 @@ window.onload = () => {
             let parent = document.getElementById(id);
             let children = parent.children;
 
-
-
             for (let i = 0; i < children.length; i++) {
                 console.log("children[i].id = " + children[i].id);
 
                 if (children[i].id.split('-')[0] === "placedComponent") {
                     parent.removeChild(children[i]);
                     console.log("Removed");
+                    return;
                 }
             }
         }
@@ -114,12 +113,20 @@ window.onload = () => {
             }
         }
         const mouseDownHandler = function (event) {
-            event.stopPropagation();
-
-
             console.log("this.id: " + this.id);
+
+            // If the user clicked on the image of the component
+            if (this.tagName == "img") {
+                return;
+                /*let parentNode = event.currentTarget.parentNode;
+
+                for (let i = 0; i < event.currentTarget.children.length; i++) {
+                    if ()
+                }*/
+            }
+
             // Remove other components with id starting with "placedcomponent"
-            removePlacedComponentsInCell(event.currentTarget.id);
+            removePlacedComponentsInCell(this.id);
 
             // Draw new component
             placeComponent(this.id, "placedComponent-" + typeID);
