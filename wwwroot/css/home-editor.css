@@ -5,6 +5,11 @@ table, th, td {
     height: 200px;
 }
 
+td {
+    margin-left: auto;
+    margin-top: auto;
+}
+
 .activeSchematicArea {
     position: absolute;
     top: 0;
