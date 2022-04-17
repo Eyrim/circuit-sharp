@@ -18,6 +18,7 @@ window.onload = () => {
 
         let typeID = "";
         let placedNum = 0;
+        let value = 0;
 
         function main() {
             attachComponentAreaHandlers();
@@ -112,8 +113,51 @@ window.onload = () => {
 
             parent.appendChild(element);
 
+            notifyControllerOfPlace(element);
             placedNum += 1;
             console.log("Appended to: " + parentID);
+        }
+
+        function notifyControllerOfPlace(element) {
+            let url = `https://localhost:44338/API/PlaceComponent?`;
+            url += `typeID=${typeID}&`;
+            url += `parentElementID=${element.parentElement.id}`;
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: "",
+                success: () => {
+                    console.log("Successful POST");
+                },
+                dataType: "text"
+            });
+
+
+            /*fetch('https://localhost:44338/API/PlaceComponent')
+                .then(response => {
+                    if (!response.ok) { throw new Error("Failed to fetch;"); }
+                }).catch(error => {
+                    console.log(error);
+                })*/
+            /*let xhr = new XMLHttpRequest();
+            xhr.open("POST", "https://localhost:44338/API/PlaceComponent");
+
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onload = () => {
+                console.log(xhr.status);
+            }
+
+            let data = `{
+                "typeID": ${typeID},
+                "parentElementID": ${element.parentElement.id},
+                "value": ${value}
+            }`;
+
+            console.log(xhr);
+            xhr.send(data);*/
         }
 
         function getURLFromTypeID() {

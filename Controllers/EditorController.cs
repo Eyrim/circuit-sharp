@@ -29,37 +29,5 @@ namespace CircuitSharp.Controllers
 
             return base.File(path, "image/png");
         }
-
-        // POST: Editor/PlaceComponent?TypeID=
-        [HttpPost]
-        public void PlaceComponent(string TypeID, string GridPos, string Value, string Rotation) //TODO: Add Grid functionality
-        {
-            int gridX = int.Parse(GridPos.Split(",")[0]);
-            int gridY = int.Parse(GridPos.Split(",")[1]);
-
-            Point position = new Point(gridX, gridY);
-
-
-            /*
-             * When adding a new component to the application
-             * It must be added here
-             */
-            switch (TypeID)
-            {
-                // Generic Resistor
-                case "0":
-                    //GenericResistor gr = new GenericResistor();
-                    //EditorModel.AddComponent(gr);
-                    break;
-
-                case "1":
-                    //Wire w = new Wire();
-                    //EditorModel.AddComponent(w);
-                    break;
-
-                default:
-                    break;
-            }
-        }  
     }
 }
