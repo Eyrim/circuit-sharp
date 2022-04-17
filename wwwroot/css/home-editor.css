@@ -1,3 +1,8 @@
+table, th, td {
+    border: 5px solid;
+    table-layout: fixed;
+}
+
 .activeSchematicArea {
     position: absolute;
     top: 0;
@@ -42,7 +47,7 @@
     width: 50%;
 }
 
-.activeSchematicAreaTable {
+.activeSchematicAreaTable { /* Images are 100x200 */
     position: absolute;
     width: 80%;
     height: 100%;
@@ -54,8 +59,8 @@
 }
 
 .activeSchematicAreaRow {
-    width: 100% !important;
-    height: 20% !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
+    width: 500px !important;
+    height: 200px !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
     position: fixed;
     right: 0;
     top: 0;
@@ -63,8 +68,8 @@
 }
 
 .activeSchematicAreaColumn {
-    max-width: 20% !important;
-    max-height: 20% !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
+    max-width: 100px !important;
+    max-height: 200px !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
     position: fixed;
     right: 0;
     top: 0;

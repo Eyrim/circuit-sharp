@@ -70,63 +70,17 @@ window.onload = () => {
             }
         }
 
-        const drawComponent = function (id, toAdd) {
-            let container = document.getElementById(id);
-            let el = document.createElement('img');
-            let url = `https://localhost:44338/Images/`;
-
-            switch (typeID) {
-                case "0":
-                    url += "GenericResistor";
-                    break;
-
-                case "1":
-                    url += "Wire";
-                    break;
-
-                default:
-                    console.log("Failed");
-            }
-
-            el.src = url;
-            el.id = toAdd;
-            el.style.zIndex = "9999999";
-            el.style.filter = "opacity(75%)";
-
-            container.appendChild(el);
-        }
-
-        const enterHandler = function (event) {
-            if (document.getElementById(event.currentTarget.id).children.length > 2) {
-                try {
-                    document.getElementById(event.currentTarget.id).removeChild(document.getElementById("placedComponent-" + typeID)); //HERE
-                } catch {
-                }
-            } else {
-                drawComponent(event.currentTarget.id, "GhostTest");
-            }
-        }
-        const leaveHandler = function (event) {
-            try {
-                document.getElementById(event.currentTarget.id).removeChild(document.getElementById("GhostTest")); //HERE
-            } catch {
-            }
-        }
         const mouseDownHandler = function (event) {
             console.log("this.id: " + this.id);
+
+            if (document.getElementById(event.currentTarget.id).childElementCount > 2) {
+                removePlacedComponentsInCell(event.currentTarget.id);
+            }
 
             // If the user clicked on the image of the component
             if (this.tagName == "img") {
                 return;
-                /*let parentNode = event.currentTarget.parentNode;
-
-                for (let i = 0; i < event.currentTarget.children.length; i++) {
-                    if ()
-                }*/
             }
-
-            // Remove other components with id starting with "placedcomponent"
-            removePlacedComponentsInCell(this.id);
 
             // Draw new component
             placeComponent(this.id, "placedComponent-" + typeID);
