@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ElectronNET.API;
 using CircuitSharp.Models;
+using CircuitSharp.Models.Resources;
 
 namespace CircuitSharp
 {

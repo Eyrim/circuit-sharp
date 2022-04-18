@@ -3,6 +3,12 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Dependencies\**" />
+    <Content Remove="Dependencies\**" />
+    <EmbeddedResource Remove="Dependencies\**" />
+    <None Remove="Dependencies\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="wwwroot\GenericData\Imgs\genericResistor.png" />
     <None Include="wwwroot\GenericData\Imgs\wire.png" />
     <None Include="wwwroot\GenericData\Imgs\staticResistor.psd" />
@@ -19,7 +25,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dependencies\" />
+    <Folder Include="Models\API\" />
     <Folder Include="SchematicEditor\src\Components\Exceptions\" />
   </ItemGroup>
 </Project>

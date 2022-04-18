@@ -23,37 +23,6 @@ window.onload = () => {
         function main() {
             attachComponentAreaHandlers();
         }
-/*
-        function getTableRows () {
-            const els = document.getElementById("activeSchematicAreaTable");
-            let tableRows = [];
-
-            //TODO: Unhardcode this
-            for (let i = 0; i < 5; i++) {
-                tableRows.push(els.children[0].children[i]);
-            }
-
-            // One row
-            //console.log(els.children[0].children[0]);
-            return tableRows;
-        }
-
-        function populateTableRows () {
-            let rows = getTableRows();
-            let children;
-            let el;
-
-            for (let i = 0; i < rows.length; i++) {
-                children = rows[i].children;
-
-                for (let j = 0; j < children.length; j++) {
-                    el = document.createElement('IMG');
-                    el.src = `https://localhost:44338/Images/Transparent`;
-
-                    children[j].appendChild(el);
-                }
-            }
-        }*/
 
         function attachComponentAreaHandlers() {
             console.log("Attaching Component Area Handlers");
@@ -119,7 +88,7 @@ window.onload = () => {
         }
 
         function notifyControllerOfPlace(element) {
-            let url = `https://localhost:5001/API/PlaceComponent?`;
+            let url = `http://localhost:8001/API/PlaceComponent?`;
             url += `typeID=${typeID}&`;
             url += `parentElementID=${element.parentElement.id}`;
 
@@ -135,46 +104,9 @@ window.onload = () => {
         }
 
         function getURLFromTypeID() {
-            let url = "http://localhost:8001/Images/";
+            let url = "http://localhost:8001/Images/ComponentImage?TypeID=";
 
-            switch (typeID) {
-                case '0':
-                    url += "GenericResistor";
-                    break;
-
-                case '1':
-                    url += "Wire";
-                    break;
-
-                case '2':
-                    url += "Wiredtl";
-                    break;
-
-                case '3':
-                    url += "Cell";
-                    break;
-
-                case '4':
-                    url += "Wireltd";
-                    break;
-
-                case '5':
-                    url += "Wireutl";
-                    break;
-
-                case '6':
-                    url += "Wireutr";
-                    break;
-
-                case '7':
-                    url += "Capacitor";
-                    break;
-
-                default:
-                    throw new Error("Could not find URL to place component");
-            }
-
-            return url;
+            return url + typeID; 
         }
     });
 }

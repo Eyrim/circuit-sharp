@@ -14,7 +14,7 @@ td {
     position: absolute;
     top: 0;
     left: 0;
-    background-image: url("http://localhost:8001/Home/MissingTexture");
+    background-image: url("http://localhost:8001/Images/BackgroundImage?ID=0");
     /* Preserve Aspect Ratio */
     min-width: 100%;
     min-height: 100%;
