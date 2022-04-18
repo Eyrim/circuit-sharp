@@ -1,6 +1,4 @@
-﻿"use strict";
-
-window.onload = () => {
+window.onload = (): void => {
     fallback.load({
         jQuery: [
             // Google's CDN
@@ -11,70 +9,70 @@ window.onload = () => {
     });
 
     // When jQuery is loaded
-    fallback.ready(['jQuery'], (jQuery) => {
+    fallback.ready(['jQuery'], (jQuery): void => {
         console.log("Loaded jQuery");
+
+        let typeID: string = "";
+        let placedNum: number = 0;
+        let value: number = 0;
 
         main();
 
-        let typeID = "";
-        let placedNum = 0;
-        let value = 0;
-
-        function main() {
+        function main(): void {
             attachComponentAreaHandlers();
         }
 
-        function attachComponentAreaHandlers() {
+        function attachComponentAreaHandlers(): void {
             console.log("Attaching Component Area Handlers");
-            for (let i = 0; i <= 7; i++) {
+            for (let i: number = 0; i <= 7; i++) {
                 $("#component-" + i).click(imgClickedHandler);
             }
         }
-
-        function imgClickedHandler(event) {
+    
+        function imgClickedHandler(event: any): void {
             typeID = event.target.id.split('-')[1];
 
             attachSchematicAreaHandlers();
         }
 
-        function attachSchematicAreaHandlers() {
+        function attachSchematicAreaHandlers(): void {
             console.log("Attaching Schematic Area Handlers");
             // Attaches schematicArea listeners
-            for (let i = 0; i <= 24; i++) {
-                document.getElementById(i).addEventListener("mousedown", mouseDownHandler); //TODO: REFACTOR TO jQUERY
+            for (let i:number = 0; i <= 24; i++) {
+                document.getElementById(String(i)).addEventListener("mousedown", mouseDownHandler); //TODO: REFACTOR TO jQUERY
             }
         }
 
-        function mouseDownHandler(event) {
+        function mouseDownHandler(event: any): void {
             console.log(event);
             if (event.target.tagName.toLowerCase() == "img") { return; }
 
             console.log("Clicked on: " + event.target.id);
             console.log("TypeID: " + typeID);
 
-            let numInContainer = event.target.childElementCount;
+            let numInContainer: number = event.target.childElementCount;
 
             if (numInContainer >= 1) { removePlacedFromID(event.target.id); }
 
             placeComponent(event.target.id);
         }
 
-        function removePlacedFromID(parentID) {
+        function removePlacedFromID(parentID: string): void {
             console.log("Removing Placed");
-            let parent = document.getElementById(parentID);
-            let children = parent.children;
+            let parent: HTMLElement = document.getElementById(parentID);
+            let children: HTMLCollection = parent.children;
 
-            for (let i = 0; i < parent.childElementCount; i++) {
+            for (let i: number = 0; i < parent.childElementCount; i++) {
                 if (children[i].id.split('-')[0] == "PlacedComponent") {
                     parent.removeChild(children[i]);
                 }
             }
         }
 
-        function placeComponent(parentID) {
-            let parent = document.getElementById(parentID);
-            let element = document.createElement('img');
-            let url = getURLFromTypeID();
+        function placeComponent(parentID: string): void {
+            let parent: HTMLElement = document.getElementById(parentID);
+            let element: HTMLImageElement = document.createElement('img');
+            let url: string = getURLFromTypeID();
 
             element.src = url;
             element.id = "PlacedComponent-" + placedNum;
@@ -87,8 +85,8 @@ window.onload = () => {
             console.log("Appended to: " + parentID);
         }
 
-        function notifyControllerOfPlace(element) {
-            let url = `http://localhost:8001/API/PlaceComponent?`;
+        function notifyControllerOfPlace(element: HTMLImageElement): void {
+            let url: string = `http://localhost:8001/API/PlaceComponent?`;
             url += `typeID=${typeID}&`;
             url += `parentElementID=${element.parentElement.id}`;
 
@@ -96,15 +94,15 @@ window.onload = () => {
                 type: "POST",
                 url: url,
                 data: "",
-                success: () => {
+                success: (): void => {
                     console.log("Successful POST");
                 },
                 dataType: "text"
             });
         }
-
-        function getURLFromTypeID() {
-            let url = "http://localhost:8001/Images/ComponentImage?TypeID=";
+        
+        function getURLFromTypeID(): string {
+            let url: string = "http://localhost:8001/Images/ComponentImage?TypeID=";
 
             return url + typeID; 
         }
