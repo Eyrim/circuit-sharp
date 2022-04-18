@@ -6,7 +6,7 @@ window.onload = () => {
             // Google's CDN
             "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
             // Local fallback
-            "https://localhost:44338/lib/jquery/dist/jquery.js"
+            "http://localhost:8001/lib/jquery/dist/jquery.js"
         ]
     });
 
@@ -119,7 +119,7 @@ window.onload = () => {
         }
 
         function notifyControllerOfPlace(element) {
-            let url = `https://localhost:44338/API/PlaceComponent?`;
+            let url = `https://localhost:5001/API/PlaceComponent?`;
             url += `typeID=${typeID}&`;
             url += `parentElementID=${element.parentElement.id}`;
 
@@ -135,7 +135,7 @@ window.onload = () => {
         }
 
         function getURLFromTypeID() {
-            let url = "https://localhost:44338/Images/";
+            let url = "http://localhost:8001/Images/";
 
             switch (typeID) {
                 case '0':
