@@ -57,7 +57,7 @@ window.onload = () => {
 
         function attachComponentAreaHandlers() {
             console.log("Attaching Component Area Handlers");
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i <= 7; i++) {
                 $("#component-" + i).click(imgClickedHandler);
             }
         }
@@ -132,32 +132,6 @@ window.onload = () => {
                 },
                 dataType: "text"
             });
-
-
-            /*fetch('https://localhost:44338/API/PlaceComponent')
-                .then(response => {
-                    if (!response.ok) { throw new Error("Failed to fetch;"); }
-                }).catch(error => {
-                    console.log(error);
-                })*/
-            /*let xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://localhost:44338/API/PlaceComponent");
-
-            xhr.setRequestHeader("Accept", "application/json");
-            xhr.setRequestHeader("Content-Type", "application/json");
-
-            xhr.onload = () => {
-                console.log(xhr.status);
-            }
-
-            let data = `{
-                "typeID": ${typeID},
-                "parentElementID": ${element.parentElement.id},
-                "value": ${value}
-            }`;
-
-            console.log(xhr);
-            xhr.send(data);*/
         }
 
         function getURLFromTypeID() {
@@ -170,6 +144,30 @@ window.onload = () => {
 
                 case '1':
                     url += "Wire";
+                    break;
+
+                case '2':
+                    url += "Wiredtl";
+                    break;
+
+                case '3':
+                    url += "Cell";
+                    break;
+
+                case '4':
+                    url += "Wireltd";
+                    break;
+
+                case '5':
+                    url += "Wireutl";
+                    break;
+
+                case '6':
+                    url += "Wireutr";
+                    break;
+
+                case '7':
+                    url += "Capacitor";
                     break;
 
                 default:

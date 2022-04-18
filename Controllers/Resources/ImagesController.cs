@@ -67,5 +67,55 @@ namespace CircuitSharp.Controllers
         {
             return base.File(GetImage("missingTexture"), "image/png");
         }
+
+        /// <summary>
+        /// Serves cell image
+        /// </summary>
+        /// <returns>ActionResult of a cell image</returns>
+        //GET: Images/Cell
+        [HttpGet]
+        public ActionResult Cell()
+        {
+            return base.File(GetImage("cell"), "image/png");
+        }
+
+        /// <summary>
+        /// Serves wire coming from down, going to the left image
+        /// </summary>
+        /// <returns>ActionResult of a wire down to left image</returns>
+        //GET: Images/Wiredtl
+        [HttpGet]
+        public ActionResult Wiredtl()
+        {
+            return base.File(GetImage("wiredtl"), "image/png");
+        }
+
+        //GET: Images/Wireltd
+        [HttpGet]
+        public ActionResult Wireltd()
+        {
+            return base.File(GetImage("wireltd"), "image/png");
+        }
+
+        //GET: Images/Wireutl
+        [HttpGet]
+        public ActionResult Wireutl()
+        {
+            return base.File(GetImage("wireutl"), "image/png");
+        }
+
+        //GET: Images/Wireutr
+        [HttpGet]
+        public ActionResult Wireutr()
+        {
+            return base.File(GetImage("wireutr"), "image/png");
+        }
+
+        //GET: Images/Capacitor
+        [HttpGet]
+        public ActionResult Capacitor()
+        {
+            return base.File(GetImage("capacitor"), "image/png");
+        }
     }
 }
