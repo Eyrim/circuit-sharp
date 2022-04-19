@@ -10,6 +10,11 @@ td {
     margin-top: auto;
 }
 
+button {
+    border: none;
+    background-color: transparent;
+}
+
 .activeSchematicArea {
     position: absolute;
     top: 0;
