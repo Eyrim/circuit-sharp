@@ -12,7 +12,7 @@ namespace CircuitSharp.SchematicEditor.src.Components
     {
         public string UUID { get; set; }
 
-        public Point Position { get; set; }
+        public int Position { get; set; }
 
         public double Value { get; set; }
 
@@ -28,7 +28,7 @@ namespace CircuitSharp.SchematicEditor.src.Components
         public Wire TrailWire { get; set; }
 
 
-        public Component(Point Position, double Value, RotationEnum Rotation)
+        public Component(int position, double Value, RotationEnum Rotation)
         {
             this.Position = Position;
             this.Value = Value;

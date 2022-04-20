@@ -9,15 +9,21 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using System;
 
-namespace CircuitSharp.Controllers
+namespace CircuitSharp.Controllers.API.Helpers
 {
-    public class APIController : Controller
+    public class APIHelpers
     {
-        // POST: API/PlaceComponent?typeID=&parentElementID=
-        [HttpPost]
-        public void PlaceComponent(string typeID, string parentElementID) //TODO: Add Grid functionality
+        public void thing(int typeID)
         {
-            
+            Component component = null;
+
+            switch (typeID)
+            {
+                // Generic Resistor
+                case "0":
+                    component = new GenericResistor();
+                    break;
+            }
         }
     }
 }
