@@ -15,6 +15,10 @@ button {
     background-color: transparent;
 }
 
+hide {
+    display: none;
+}
+
 .activeSchematicArea {
     position: absolute;
     top: 0;

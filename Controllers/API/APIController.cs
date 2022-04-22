@@ -18,30 +18,55 @@ namespace CircuitSharp.Controllers
     {
         private const string PersistenceFilePath = @"C:\Users\gamin\Desktop\circuit-sharp-fixed\circuit-sharp\Persistence\";
 
+        public static string GetPersistenceFilePath()
+        {
+            return PersistenceFilePath;
+        }
+
         // POST: API/PlaceComponent?userID=&typeID=&parentElementID=
         [HttpPost]
-        public void PlaceComponent(string userID, string typeID, string parentElementID) //TODO: Add Grid functionality
+        public void PlaceComponent(string typeID, string parentElementID) //TODO: Add Grid functionality
         {
-            Console.WriteLine($"userID: {userID}");
             Console.WriteLine($"typeID: {typeID}");
             Console.WriteLine($"parentElementID: {parentElementID}");
 
-            Component component = APIHelpers.CreateComponent(typeID, parentElementID);
+            //Component component = APIHelpers.CreateComponent(typeID, parentElementID);
 
-            string path = Path.Combine(PersistenceFilePath, userID);
-            path += ".json";
+            // Create new cell to be put into the circuit
+            Cell newCell = new Cell(parentElementID, typeID, null);
 
-            Console.WriteLine($"Path: {path}");
+            // If the circuit is null, define it
+            if (EditorModel.Circuit == null)
+            {
+                EditorModel.Circuit = new Structures.Circuit.Circuit();
+                EditorModel.PopulateCircuitCells();
+            } 
+
+            // Add new cell to the circuit
+            EditorModel.Circuit.Cells[Convert.ToInt32(parentElementID)] = newCell;
 
             /*if (System.IO.File.Exists(path))
             {
                 APIHelpers.CreateFile(path);
             }*/
 
-            Cell newCell = new Cell(parentElementID, typeID, null);
+            /*Cell newCell = new Cell(parentElementID, typeID, null);
 
             EditorModel.Circuit.Cells[Convert.ToInt32(parentElementID)] = newCell;
+            JSONWriting.WriteCircuitToFile(path, EditorModel.Circuit);*/
+        }
+
+        [HttpPost]
+        public ActionResult SetUserID(string userID)
+        {
+            EditorModel.UserID = userID;
+
+            string path = Path.Combine(PersistenceFilePath, EditorModel.UserID);
+            path += ".json";
+
             JSONWriting.WriteCircuitToFile(path, EditorModel.Circuit);
+
+            return StatusCode(200);
         }
     }
 }

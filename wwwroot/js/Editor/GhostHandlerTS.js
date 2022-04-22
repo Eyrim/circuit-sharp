@@ -16,6 +16,13 @@ window.onload = () => {
         main();
         function main() {
             attachComponentAreaHandlers();
+            attachSubmitButtonHandler();
+        }
+        function attachSubmitButtonHandler() {
+            $("#submitButton").click(submitButtonClickedHandler);
+        }
+        function submitButtonClickedHandler() {
+            getUserIP();
         }
         function attachComponentAreaHandlers() {
             console.log("Attaching Component Area Handlers");
@@ -73,11 +80,39 @@ window.onload = () => {
             let formData = new FormData(form);
             return formData.get(key).toString();
         }
+        function getUserIP() {
+            /*$.getJSON("https://api.ipify.org?format=json")
+                .then((data): void => {
+                    return data.ip;
+                })
+                .catch((err): void => {
+                    console.log()
+                })*/
+            $.get("https://api.ipify.org?format=json", successFunction);
+        }
+        function successFunction(data) {
+            console.log("SUCCESS :D");
+            console.log(data);
+            setUserID(data.ip);
+        }
+        function setUserID(IP) {
+            let url = `http://localhost:8001/API/SetUserID`;
+            /*let IP: string = getUserIP();*/
+            //console.log(IP);
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    "userID": IP
+                },
+                success: () => {
+                    console.log("Successful POST to set userID");
+                },
+                dataType: "json"
+            });
+        }
         function notifyControllerOfPlace(element) {
             let url = `http://localhost:8001/API/PlaceComponent?`;
-            let userIDFormEl = document.getElementById("userIDForm");
-            let userID = getValueFromForm(userIDFormEl, "userID");
-            url += `userID=${userID}&`;
             url += `typeID=${typeID}&`;
             url += `parentElementID=${element.parentElement.id}`;
             console.log(`URL: ${url}`);

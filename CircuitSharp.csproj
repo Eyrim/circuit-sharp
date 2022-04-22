@@ -4,9 +4,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Dependencies\**" />
+    <Compile Remove="PHP\**" />
     <Content Remove="Dependencies\**" />
+    <Content Remove="PHP\**" />
     <EmbeddedResource Remove="Dependencies\**" />
+    <EmbeddedResource Remove="PHP\**" />
     <None Remove="Dependencies\**" />
+    <None Remove="PHP\**" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\GenericData\Imgs\genericResistor.png" />
@@ -26,7 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\API\" />
-    <Folder Include="PHP\" />
     <Folder Include="SchematicEditor\src\Components\Exceptions\" />
   </ItemGroup>
 </Project>

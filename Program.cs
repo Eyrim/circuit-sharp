@@ -16,9 +16,6 @@ namespace CircuitSharp
     {
         public static void Main(string[] args)
         {
-            EditorModel.Circuit = new Structures.Circuit.Circuit();
-            EditorModel.PopulateCircuitCells();
-
             CreateHostBuilder(args).Build().Run();
 
             // NOTE TO FUTURE SELF TO SAVE ME HOURS OF PAIN:

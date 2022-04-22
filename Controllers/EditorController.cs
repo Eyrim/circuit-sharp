@@ -14,9 +14,7 @@ namespace CircuitSharp.Controllers
         // GET: Editor/
         public ActionResult Index()
         {
-            var model = new EditorModel();
-
-            return View(model);
+            return View();
         }
 
         // GET: Editor/GetImgUrlFromTypeID?TypeID=

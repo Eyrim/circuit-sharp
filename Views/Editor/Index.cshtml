@@ -16,6 +16,8 @@
     <link rel="import" href="Menu" />
     <link rel="stylesheet" href="~/css/home-editor.css"/>
 
+    <!--<script data-main="/js/Editor/GhostHandlerTS" src="~/lib/require.js"></script>-->
+
     <script data-main="~/js/Editor/GhostHandlerTS" src="~/lib/fallback/fallback.js"></script>
     <script type="text/javascript" src="~/js/Editor/GhostHandlerTS.js"></script>
 </head>
@@ -186,12 +188,7 @@
             </tr>
         </table>
 
-        <hr />
-
-        <form id="userIDForm" name="userIDForm" class="userIDForm">
-            <label for="userID">Enter your UserID:</label>
-            <input type="text" id="userID" name="userID" />
-        </form>
+        <button type="button" id="submitButton" style="color: white;">Save Circuit</button>
     </div>
 
     @section Scripts {
