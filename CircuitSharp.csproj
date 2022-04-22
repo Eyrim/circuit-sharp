@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\API\" />
+    <Folder Include="PHP\" />
     <Folder Include="SchematicEditor\src\Components\Exceptions\" />
   </ItemGroup>
 </Project>

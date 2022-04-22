@@ -1,4 +1,5 @@
 ﻿using CircuitSharp.Models;
+using CircuitSharp.Structures.Circuit;
 using CircuitSharp.Controllers.API.Helpers;
 using CircuitSharp.SchematicEditor.src.Components;
 using CircuitSharp.SchematicEditor.src.Components.Resistors;
@@ -30,7 +31,6 @@ namespace CircuitSharp.Controllers
             string path = Path.Combine(PersistenceFilePath, userID);
             path += ".json";
 
-            Console.WriteLine("AAAAAAAAA");
             Console.WriteLine($"Path: {path}");
 
             /*if (System.IO.File.Exists(path))
@@ -38,11 +38,9 @@ namespace CircuitSharp.Controllers
                 APIHelpers.CreateFile(path);
             }*/
 
-            //DEBUG:
-            EditorModel.Circuit = new Structures.Circuit.Circuit();
-            EditorModel.PopulateCircuitCells();
+            Cell newCell = new Cell(parentElementID, typeID, null);
 
-            EditorModel.Circuit.Cells[Convert.ToInt32(parentElementID)].TypeID = typeID;
+            EditorModel.Circuit.Cells[Convert.ToInt32(parentElementID)] = newCell;
             JSONWriting.WriteCircuitToFile(path, EditorModel.Circuit);
         }
     }

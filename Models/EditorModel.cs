@@ -22,7 +22,7 @@ namespace CircuitSharp.Models
         {
             List<Cell> cells = new List<Cell>();
 
-            for (int i = 0; i < RowCount * ColumnCount; i++)
+            for (int i = 0; i < (RowCount * ColumnCount); i++)
             {
                 cells.Add(new Cell(i.ToString(), null, null));
                 /*Circuit.Cells.SetValue(new Cell(i.ToString(), "undefined", -1), i);*/
