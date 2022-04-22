@@ -12,8 +12,7 @@ namespace CircuitSharp.SchematicEditor.src.Components.PowerSources
         public double Voltage { get; set; }
 
 
-        public DCPowerSource(Point Position, double Value,
-            RotationEnum Rotation) : base(Position, Value, Rotation)
+        public DCPowerSource(int Position) : base(Position)
         {
 
         }

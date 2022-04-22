@@ -21,18 +21,14 @@ namespace CircuitSharp.SchematicEditor.src.Components
         /// </summary>
         public List<int> IndexesOfNext { get; set; }
 
-        public RotationEnum Rotation { get; set; }
-
         public Wire LeadWire { get; set; }
         
         public Wire TrailWire { get; set; }
 
 
-        public Component(int position, double Value, RotationEnum Rotation)
+        public Component(int position)
         {
             this.Position = Position;
-            this.Value = Value;
-            this.Rotation = Rotation;
 
             IndexesOfNext = new List<int>();
         }

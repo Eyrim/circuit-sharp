@@ -87,6 +87,7 @@ window.onload = (): void => {
 
         function notifyControllerOfPlace(element: HTMLImageElement): void {
             let url: string = `http://localhost:8001/API/PlaceComponent?`;
+            url += `userID=admin&`;
             url += `typeID=${typeID}&`;
             url += `parentElementID=${element.parentElement.id}`;
 

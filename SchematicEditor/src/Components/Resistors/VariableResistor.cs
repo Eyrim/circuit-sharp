@@ -11,8 +11,7 @@ namespace CircuitSharp.SchematicEditor.src.Components.Resistors
 {
     public class VariableResistor : DynamicResistor
     {
-        public VariableResistor(Point Position, double Value,
-            RotationEnum Rotation) : base(Position, Value, Rotation)
+        public VariableResistor(int Position) : base(Position)
         {
 
         }

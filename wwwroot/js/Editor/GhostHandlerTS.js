@@ -71,6 +71,7 @@ window.onload = () => {
         }
         function notifyControllerOfPlace(element) {
             let url = `http://localhost:8001/API/PlaceComponent?`;
+            url += `userID=admin&`;
             url += `typeID=${typeID}&`;
             url += `parentElementID=${element.parentElement.id}`;
             $.ajax({

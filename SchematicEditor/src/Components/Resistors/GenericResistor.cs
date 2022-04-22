@@ -10,8 +10,7 @@ namespace CircuitSharp.SchematicEditor.src.Components.Resistors
 {
     public class GenericResistor : Component
     {
-        public GenericResistor(Point Position, double Value,
-            RotationEnum Rotation) : base(Position, Value, Rotation)
+        public GenericResistor(int Position) : base(Position)
         {
 
         }

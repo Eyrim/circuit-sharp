@@ -30,8 +30,7 @@ namespace CircuitSharp.SchematicEditor.src.Components.Resistors
         public double currentResistance { get; set; }
 
 
-        public DynamicResistor(Point Position, double Value,
-            RotationEnum Rotation) : base(Position, Value, Rotation)
+        public DynamicResistor(int Position) : base(Position)
         {
 
         }

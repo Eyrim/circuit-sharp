@@ -18,8 +18,7 @@ namespace CircuitSharp.SchematicEditor.src.Components.Resistors
         /// </summary>
         /// <param name="ResistanceRange">The minimum and maximum resistances of the component</param>
         /// <param name="IconURL">The URL of the Icon, rooted from wwwroot</param>
-        public LightDependentResistor(Point Position, double Value,
-            RotationEnum Rotation) : base(Position, Value, Rotation)
+        public LightDependentResistor(int Position) : base(Position)
         {
             this.ResistanceRange = ResistanceRange;
             this.IconURL = IconURL;

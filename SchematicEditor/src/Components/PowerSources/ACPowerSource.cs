@@ -17,8 +17,7 @@ namespace CircuitSharp.SchematicEditor.src.Components.PowerSources
         public double NegativeVoltage { get; set; }
 
 
-        public ACPowerSource(Point Position, double Value,
-            RotationEnum Rotation) : base(Position, Value, Rotation)
+        public ACPowerSource(int Position) : base(Position)
         {
 
         }

@@ -12,8 +12,7 @@ namespace CircuitSharp.SchematicEditor.src.Components.Wires
     /// </summary>
     public class Wire : Component
     {
-        public Wire(Point Position, double Value, 
-            RotationEnum Rotation) : base(Position, Value, Rotation)
+        public Wire(int Position) : base(Position)
         {
 
         }
