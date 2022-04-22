@@ -69,11 +69,18 @@ window.onload = () => {
             placedNum += 1;
             console.log("Appended to: " + parentID);
         }
+        function getValueFromForm(form, key) {
+            let formData = new FormData(form);
+            return formData.get(key).toString();
+        }
         function notifyControllerOfPlace(element) {
             let url = `http://localhost:8001/API/PlaceComponent?`;
-            url += `userID=admin&`;
+            let userIDFormEl = document.getElementById("userIDForm");
+            let userID = getValueFromForm(userIDFormEl, "userID");
+            url += `userID=${userID}&`;
             url += `typeID=${typeID}&`;
             url += `parentElementID=${element.parentElement.id}`;
+            console.log(`URL: ${url}`);
             $.ajax({
                 type: "POST",
                 url: url,

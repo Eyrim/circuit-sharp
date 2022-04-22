@@ -85,11 +85,21 @@ window.onload = (): void => {
             console.log("Appended to: " + parentID);
         }
 
+        function getValueFromForm(form: HTMLFormElement, key: string): string {
+            let formData = new FormData(form);
+
+            return formData.get(key).toString();
+        }
+
         function notifyControllerOfPlace(element: HTMLImageElement): void {
             let url: string = `http://localhost:8001/API/PlaceComponent?`;
-            url += `userID=admin&`;
+            let userIDFormEl: HTMLFormElement = document.getElementById("userIDForm");
+            let userID: string = getValueFromForm(userIDFormEl, "userID");
+            url += `userID=${userID}&`;
             url += `typeID=${typeID}&`;
             url += `parentElementID=${element.parentElement.id}`;
+
+            console.log(`URL: ${url}`);
 
             $.ajax({
                 type: "POST",

@@ -16,12 +16,16 @@ namespace CircuitSharp
     {
         public static void Main(string[] args)
         {
+            EditorModel.Circuit = new Structures.Circuit.Circuit();
+            EditorModel.PopulateCircuitCells();
+
             CreateHostBuilder(args).Build().Run();
 
             // NOTE TO FUTURE SELF TO SAVE ME HOURS OF PAIN:
             //
             // METHODS UNDER HERE WON'T RUN BECAUSE THE ABOVE METHOD HASN'T RETURNED CONTROL TO HERE
             // :(
+            // PUT METHODS ABOVE THE CREATEHOSTBUILDER
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
