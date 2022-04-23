@@ -3,8 +3,8 @@ using System.IO;
 using System.Collections.Generic;
 using CircuitSharp.SchematicEditor.src.Components;
 using CircuitSharp.Structures.Circuit;
-using CircuitSharp.Util.JSON;
 using CircuitSharp.Controllers.API;
+using CircuitSharp.Util.Files;
 
 namespace CircuitSharp.Models
 {
@@ -18,23 +18,6 @@ namespace CircuitSharp.Models
 
         //TODO: Implement way of knowing screen size, JS update controller, updates model
 
-        /// <summary>
-        /// Populates the cells with placeholder values, each parentID will be the correct value.
-        /// Everything else is null
-        /// </summary>
-        public static void PopulateCircuitCells()
-        {
-            List<Cell> cells = new List<Cell>();
-
-            for (int i = 0; i < (RowCount * ColumnCount); i++)
-            {
-                cells.Add(new Cell(i.ToString(), null, null));
-                /*Circuit.Cells.SetValue(new Cell(i.ToString(), "undefined", -1), i);*/
-            }
-
-            Circuit.Cells = cells.ToArray();
-        }
-
         public static void ModifyCell(int ParentID, Cell NewCell)
         {
             Circuit.Cells[ParentID] = NewCell;
@@ -44,7 +27,7 @@ namespace CircuitSharp.Models
         {
             string path = GetPathFromID(ID);
 
-            Circuit = JSONReading.DeserializeFromFile(path);
+            Circuit = FileHandling.DeserializeFromFile(path);
         }
 
         private static string GetPathFromID(string ID)

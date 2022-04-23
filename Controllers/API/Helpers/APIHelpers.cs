@@ -1,4 +1,6 @@
 ﻿using CircuitSharp.Models;
+using CircuitSharp.Util.Files;
+using CircuitSharp.Structures.Circuit;
 using CircuitSharp.SchematicEditor.src.Components;
 using CircuitSharp.SchematicEditor.src.Components.Resistors;
 using CircuitSharp.SchematicEditor.src.Components.Wires;
@@ -59,6 +61,29 @@ namespace CircuitSharp.Controllers.API.Helpers
                 default:
                     throw new ArgumentException($"No component type ID corresponds to the type ID specified: {typeID}");
             }
+        }
+
+        public static Circuit LoadCircuit(string userID)
+        {
+            string path = Path.Combine(APIController.GetPersistenceFilePath(), EditorModel.UserID);
+            path += ".json";
+
+            Circuit circuit = FileHandling.DeserializeFromFile(path);
+
+            return circuit;
+        }
+
+        public static void ModifyCircuit(Circuit LoadedCircuit, List<Cell> ModifiedCells)
+        {
+            string modifiedParentID = "";
+
+            for (int i = 0; i < ModifiedCells.Count; i++)
+            {
+                modifiedParentID = ModifiedCells[i].ParentID;
+                LoadedCircuit.Cells[Convert.ToInt32(modifiedParentID)] = ModifiedCells[i];
+            }
+
+            EditorModel.Circuit = LoadedCircuit;
         }
     }
 }

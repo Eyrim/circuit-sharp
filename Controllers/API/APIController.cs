@@ -1,4 +1,5 @@
 ﻿using CircuitSharp.Models;
+using CircuitSharp.Util.Files;
 using CircuitSharp.Structures.Circuit;
 using CircuitSharp.Controllers.API.Helpers;
 using CircuitSharp.SchematicEditor.src.Components;
@@ -10,12 +11,13 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using System;
-using CircuitSharp.Util.JSON;
+using Newtonsoft.Json;
 
 namespace CircuitSharp.Controllers
 {
     public class APIController : Controller
     {
+        private static List<Cell> ModifiedCells { get; set; }
         private const string PersistenceFilePath = @"C:\Users\gamin\Desktop\circuit-sharp-fixed\circuit-sharp\Persistence\";
 
         public static string GetPersistenceFilePath()
@@ -27,23 +29,24 @@ namespace CircuitSharp.Controllers
         [HttpPost]
         public void PlaceComponent(string typeID, string parentElementID) //TODO: Add Grid functionality
         {
-            Console.WriteLine($"typeID: {typeID}");
-            Console.WriteLine($"parentElementID: {parentElementID}");
-
-            //Component component = APIHelpers.CreateComponent(typeID, parentElementID);
-
-            // Create new cell to be put into the circuit
-            Cell newCell = new Cell(parentElementID, typeID, null);
-
             // If the circuit is null, define it
             if (EditorModel.Circuit == null)
             {
                 EditorModel.Circuit = new Structures.Circuit.Circuit();
-                EditorModel.PopulateCircuitCells();
-            } 
+                EditorModel.Circuit.PopulateCircuitCells();
+            }
 
-            // Add new cell to the circuit
-            EditorModel.Circuit.Cells[Convert.ToInt32(parentElementID)] = newCell;
+            // If modified cells is null, define it
+            if (ModifiedCells == null)
+            {
+                ModifiedCells = new List<Cell>();
+            }
+
+            // Create new cell to be put into the circuit
+            Cell newCell = new Cell(parentElementID, typeID, null);
+
+            ModifiedCells.Add(newCell);
+            //EditorModel.ModifyCell(Convert.ToInt32(parentElementID), newCell);
 
             /*if (System.IO.File.Exists(path))
             {
@@ -59,12 +62,32 @@ namespace CircuitSharp.Controllers
         [HttpPost]
         public ActionResult SetUserID(string userID)
         {
+            // Sets the user ID
             EditorModel.UserID = userID;
-
+            // Gets the path of that user's circuit
             string path = Path.Combine(PersistenceFilePath, EditorModel.UserID);
             path += ".json";
 
-            JSONWriting.WriteCircuitToFile(path, EditorModel.Circuit);
+            // If the user has never saved a circuit before
+            if (!(System.IO.File.Exists(path)))
+            {
+                // Creates the file
+                FileStream file = System.IO.File.Create(path);
+                file.Dispose(); // Disposes of resources. Also unlocks handle
+
+                // Creates a new template circuit to write to the file
+                Circuit circuit = new Circuit();
+                circuit.PopulateCircuitCells();
+
+                // Writes the template to the file
+                FileHandling.WriteCircuitToFile(circuit, path);
+            }
+
+            Circuit loadedCircuit = APIHelpers.LoadCircuit(userID);
+
+            APIHelpers.ModifyCircuit(loadedCircuit, ModifiedCells);
+            
+            FileHandling.WriteCircuitToFile(EditorModel.Circuit, path);
 
             return StatusCode(200);
         }
