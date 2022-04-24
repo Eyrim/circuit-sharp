@@ -24,6 +24,13 @@
 
 <body style="background-image: url('http://localhost:8001/Images/BackgroundImage?ID=1');">
     <div class="componentButtonContainer">
+        <div class="util-button-container">
+            <button type="button" id="submitButton" class="util-button">Save Circuit</button>
+            <button type="button" id="loadCircuitBtn" class="util-button" onclick="loadCircuit()">Load Circuit</button>
+            <button type="button" id="clearCircuitBtn" class="util-button" onclick="clearAllCells()">Clear Circuit</button>
+            <!--<button type="button" value="Save Circuit" onclick="saveCircuit" id="saveCircuitBtn" />-->
+        </div>
+
         <table class="componentButtonTable" id="componentButtonTable">
             <tr class="componentButtonTableRow" id="componentButtonTableRow-0">
                 <td class="componentButtonTableData" id="componentButtonTableData-0-0">
@@ -189,87 +196,83 @@
             </tr>
         </table>
 
-    <script type="text/javascript">
-        let placedNum = 0;
+        <script type="text/javascript">
+            let placedNum = 0;
 
-        // Btn click handler
-        function loadCircuit() {
-            console.log("Attempting to load circuit");
+            // Btn click handler
+            function loadCircuit() {
+                console.log("Attempting to load circuit");
 
-            let url = "http://localhost:8001/API/GetPersistenceFile";
-            let ip = $.get("https://api.ipify.org?format=json", (data) => {
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    data: {
-                        ip: data.ip
-                    },
-                    success: renderCircuit,
-                    dataType: "json"
+                let url = "http://localhost:8001/API/GetPersistenceFile";
+                let ip = $.get("https://api.ipify.org?format=json", (data) => {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        data: {
+                            ip: data.ip
+                        },
+                        success: renderCircuit,
+                        dataType: "json"
+                    });
                 });
-            });
-        }
+            }
 
-        function clearAllCells() {
-            // Table body
-            let schematicTable = document.getElementById("activeSchematicAreaTable").children;
-            let currentRow;
+            function clearAllCells() {
+                // Table body
+                let schematicTable = document.getElementById("activeSchematicAreaTable").children;
+                let currentRow;
             
-            // For every row
-            for (let i = 0; i < schematicTable[0].childElementCount; i++) {
-                currentRow = schematicTable[0].children[i];
-                for (let j = 0; j < currentRow.children.length; j++) {
-                    removeAllChildNodes(currentRow.children[j]);
+                // For every row
+                for (let i = 0; i < schematicTable[0].childElementCount; i++) {
+                    currentRow = schematicTable[0].children[i];
+                    for (let j = 0; j < currentRow.children.length; j++) {
+                        removeAllChildNodes(currentRow.children[j]);
+                    }
                 }
             }
-        }
 
-        // https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
-        function removeAllChildNodes(parent) {
-            while (parent.firstChild) {
-                parent.removeChild(parent.firstChild);
-            }
-        }
-
-        function placeComponent(parentID, typeID) {
-            let parent = document.getElementById(parentID);
-            let element = document.createElement('img');
-            let url = `http://localhost:8001/Images/ComponentImage?TypeID=${typeID}`;
-
-            element.src = url;
-            element.id = "PlacedComponent-" + placedNum;
-            element.style.zIndex = "999";
-
-            parent.appendChild(element);
-
-            //notifyControllerOfPlace(element);
-            placedNum += 1;
-        }
-
-        function renderCircuit(data) {
-            let json = JSON.parse(data)["Cells"];
-            let cell;
-
-            // Clear all cells
-            clearAllCells();
-
-            // Iterate through the returned JSON
-            for (let i = 0; i < json.length; i++) {
-                console.log(json[i]);
-                if (json[i].TypeID != null) {
-                    cell = document.getElementById(json[i].ParentID);
-                    placeComponent(json[i].ParentID, json[i].TypeID);
+            // https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
+            function removeAllChildNodes(parent) {
+                while (parent.firstChild) {
+                    parent.removeChild(parent.firstChild);
                 }
             }
-                // Whenever a typeID != null
-                // Draw that typeID in its accompanying parentID
-        }
-    </script>
 
-    <button type="button" id="submitButton" style="color: white;">Save Circuit</button>
-    <button type="button" id="loadCircuitBtn" onclick="loadCircuit()" style="color: white;">Load Circuit</button>
-    <button type="button" id="clearCircuitBtn" onclick="clearAllCells()" style="color: white;">Clear Circuit</button>
-    <!--<button type="button" value="Save Circuit" onclick="saveCircuit" id="saveCircuitBtn" />-->
+            function placeComponent(parentID, typeID) {
+                let parent = document.getElementById(parentID);
+                let element = document.createElement('img');
+                let url = `http://localhost:8001/Images/ComponentImage?TypeID=${typeID}`;
+
+                element.src = url;
+                element.id = "PlacedComponent-" + placedNum;
+                element.style.zIndex = "999";
+
+                parent.appendChild(element);
+
+                //notifyControllerOfPlace(element);
+                placedNum += 1;
+            }
+
+            function renderCircuit(data) {
+                let json = JSON.parse(data)["Cells"];
+                let cell;
+
+                // Clear all cells
+                clearAllCells();
+
+                // Iterate through the returned JSON
+                for (let i = 0; i < json.length; i++) {
+                    if (json[i].TypeID != null) {
+                        cell = document.getElementById(json[i].ParentID);
+                        placeComponent(json[i].ParentID, json[i].TypeID);
+                    }
+                }
+                    // Whenever a typeID != null
+                    // Draw that typeID in its accompanying parentID
+            }
+        </script>
+
+        
     </div>
 
     @section Scripts {
