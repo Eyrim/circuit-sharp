@@ -18,7 +18,7 @@ namespace CircuitSharp.Controllers
     public class APIController : Controller
     {
         private static List<Cell> ModifiedCells { get; set; }
-        private const string PersistenceFilePath = @"C:\Users\gamin\Desktop\circuit-sharp-fixed\circuit-sharp\Persistence\";
+        private const string PersistenceFilePath = @"Persistence/";
 
         public static string GetPersistenceFilePath()
         {

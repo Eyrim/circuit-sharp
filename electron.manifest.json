@@ -1,7 +1,7 @@
 {
   "executable": "CircuitSharp",
   "splashscreen": {
-    "imageFile": ""
+    "imageFile": "../../../wwwroot/GenericData/Imgs/splashScreen.png"
   },
   "name": "CircuitSharp",
   "author": "",
@@ -11,7 +11,7 @@
     "appId": "com.CircuitSharp.app",
     "productName": "CircuitSharp",
     "copyright": "Copyright © 2020",
-    "buildVersion": "1.0.0",
+    "buildVersion": "0.1.2",
     "compression": "maximum",
     "directories": {
       "output": "../../../bin/Desktop"
