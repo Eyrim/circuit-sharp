@@ -1,8 +1,8 @@
 table, th, td {
     border: 5px solid;
     table-layout: fixed;
-    width: 100px;
-    height: 200px;
+    width: 20%;
+    height: 20%;
 }
 
 td {
@@ -10,12 +10,26 @@ td {
     margin-top: auto;
 }
 
+button.util-button {
+    color: white;
+    border: 0.25rem solid black;
+}
+
+.util-button-container {
+    z-index: 9999999;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    text-align: center;
+}
+
 button {
     border: none;
     background-color: transparent;
 }
 
-hide {
+.hide {
     display: none;
 }
 
@@ -42,7 +56,7 @@ hide {
     left: 0;
     top: 0;
     width: 20%;
-    height: 100%;
+    height: 90%;
 }
 
 .componentButton {
@@ -75,8 +89,8 @@ hide {
 }
 
 .activeSchematicAreaRow {
-    width: 500px !important;
-    height: 200px !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
+    width: 100% !important;
+    height: 20% !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
     position: fixed;
     right: 0;
     top: 0;
@@ -84,8 +98,8 @@ hide {
 }
 
 .activeSchematicAreaColumn {
-    max-width: 100px !important;
-    max-height: 200px !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
+    max-width: 20% !important;
+    max-height: 100% !important; /* UPDATES TO ROW AND COLUMN COUNT MUST BE CALCULATED AND CHANGED HERE */
     position: fixed;
     right: 0;
     top: 0;
