@@ -197,7 +197,7 @@
             console.log("Attempting to load circuit");
 
             let url = "http://localhost:8001/API/GetPersistenceFile";
-            let ip = $.get("https://api.ipify.org?format=json", (data) => {
+            $.get("https://api.ipify.org?format=json", (data) => {
                 $.ajax({
                     type: "GET",
                     url: url,
@@ -264,11 +264,29 @@
                 // Whenever a typeID != null
                 // Draw that typeID in its accompanying parentID
         }
+
+
+        function deleteCircuit() {
+            $.get("https://api.ipify.org?format=json", (data) => {
+                let url = "http://localhost:8001/API/DeleteCircuit";
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        ip: data.ip
+                    },
+                    success: renderCircuit,
+                    dataType: "json"
+                });
+            });
+        }
     </script>
 
-    <button type="button" id="submitButton" style="color: white;">Save Circuit</button>
-    <button type="button" id="loadCircuitBtn" onclick="loadCircuit()" style="color: white;">Load Circuit</button>
-    <button type="button" id="clearCircuitBtn" onclick="clearAllCells()" style="color: white;">Clear Circuit</button>
+    <button type="button" id="submitButton">Save Circuit</button>
+    <button type="button" id="loadCircuitBtn" onclick="loadCircuit()">Load Circuit</button>
+    <button type="button" id="clearCircuitBtn" onclick="clearAllCells()">Clear Circuit</button>
+    <button type="button" id="deleteCircuitBtn" onclick="deleteCircuit()">Delete Circuit</button>
     <!--<button type="button" value="Save Circuit" onclick="saveCircuit" id="saveCircuitBtn" />-->
     </div>
 

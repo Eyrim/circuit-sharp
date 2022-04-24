@@ -104,8 +104,6 @@ namespace CircuitSharp.Controllers
         [HttpGet]
         public ActionResult GetPersistenceFile(string ip)
         {
-            Console.WriteLine("USER IP: " + ip);
-
             // Gets the path of that user's circuit
             string path = Path.Combine(PersistenceFilePath, ip);
             path += ".json";
@@ -116,6 +114,23 @@ namespace CircuitSharp.Controllers
                 Circuit circuit = FileHandling.DeserializeFromFile(path);
 
                 return base.Json(JsonConvert.SerializeObject(circuit));
+            }
+
+            return StatusCode(404);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteCircuit(string ip)
+        {
+            // Gets the path of that user's circuit
+            string path = Path.Combine(PersistenceFilePath, ip);
+            path += ".json";
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+
+                return StatusCode(200);
             }
 
             return StatusCode(404);
