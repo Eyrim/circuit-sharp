@@ -21,7 +21,8 @@ namespace CircuitSharp.Models.Resources
 
         private static Dictionary<string, string> ImageIDToControllerURL = new Dictionary<string, string>
         {
-            {"0", "missingTexture" }
+            {"0", "missingTexture" },
+            {"1", "CircuitSharpBG" }
         };
 
 

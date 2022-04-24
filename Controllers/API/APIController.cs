@@ -62,6 +62,11 @@ namespace CircuitSharp.Controllers
         [HttpPost]
         public ActionResult SetUserID(string userID)
         {
+            if (ModifiedCells == null)
+            {
+                ModifiedCells = new List<Cell>();
+            }
+
             // Sets the user ID
             EditorModel.UserID = userID;
             // Gets the path of that user's circuit
@@ -83,11 +88,14 @@ namespace CircuitSharp.Controllers
                 FileHandling.WriteCircuitToFile(circuit, path);
             }
 
-            Circuit loadedCircuit = APIHelpers.LoadCircuit(userID);
+            if (ModifiedCells.Count != 0)
+            {
+                Circuit loadedCircuit = APIHelpers.LoadCircuit(userID);
 
-            APIHelpers.ModifyCircuit(loadedCircuit, ModifiedCells);
-            
-            FileHandling.WriteCircuitToFile(EditorModel.Circuit, path);
+                APIHelpers.ModifyCircuit(loadedCircuit, ModifiedCells);
+
+                FileHandling.WriteCircuitToFile(EditorModel.Circuit, path);
+            }
 
             return StatusCode(200);
         }

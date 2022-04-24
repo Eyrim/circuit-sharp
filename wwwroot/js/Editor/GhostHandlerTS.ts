@@ -95,7 +95,21 @@ window.onload = (): void => {
         }
 
         function getUserIP(): void {
-            $.get("https://api.ipify.org?format=json", successFunction);
+            $.get("https://api.ipify.org?format=json", (data: any): void => {
+                let url: string = `http://localhost:8001/API/SetUserID`;
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        "userID": data.ip
+                    },
+                    success: (): void => {
+                        console.log("Successful POST to set userID");
+                    },
+                    dataType: "json"
+                });
+            });
         }
 
         function successFunction(data: any): void {

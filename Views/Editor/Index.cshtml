@@ -22,7 +22,7 @@
     <script type="text/javascript" src="~/js/Editor/GhostHandlerTS.js"></script>
 </head>
 
-<body>
+<body style="background-image: url('http://localhost:8001/Images/BackgroundImage?ID=1');">
     <div class="componentButtonContainer">
         <table class="componentButtonTable" id="componentButtonTable">
             <tr class="componentButtonTableRow" id="componentButtonTableRow-0">
@@ -190,14 +190,14 @@
         </table>
 
     <script type="text/javascript">
+        let placedNum = 0;
+
         // Btn click handler
         function loadCircuit() {
             console.log("Attempting to load circuit");
 
             let url = "http://localhost:8001/API/GetPersistenceFile";
             let ip = $.get("https://api.ipify.org?format=json", (data) => {
-                console.log("IP: " + data.ip);
-
                 $.ajax({
                     type: "GET",
                     url: url,
@@ -211,8 +211,6 @@
         }
 
         function clearAllCells() {
-            console.log("Clearing cells");
-
             // Table body
             let schematicTable = document.getElementById("activeSchematicAreaTable").children;
             let currentRow;
@@ -220,9 +218,7 @@
             // For every row
             for (let i = 0; i < schematicTable[0].childElementCount; i++) {
                 currentRow = schematicTable[0].children[i];
-                console.log(currentRow.children.length);
                 for (let j = 0; j < currentRow.children.length; j++) {
-                    console.log("Removing: " + currentRow.children[j]);
                     removeAllChildNodes(currentRow.children[j]);
                 }
             }
@@ -232,21 +228,22 @@
         function removeAllChildNodes(parent) {
             while (parent.firstChild) {
                 parent.removeChild(parent.firstChild);
+            }
         }
-}
+
         function placeComponent(parentID, typeID) {
             let parent = document.getElementById(parentID);
             let element = document.createElement('img');
             let url = `http://localhost:8001/Images/ComponentImage?TypeID=${typeID}`;
 
             element.src = url;
+            element.id = "PlacedComponent-" + placedNum;
             element.style.zIndex = "999";
 
             parent.appendChild(element);
 
             //notifyControllerOfPlace(element);
-            //placedNum += 1;
-            console.log("Appended to: " + parentID);
+            placedNum += 1;
         }
 
         function renderCircuit(data) {
@@ -271,6 +268,7 @@
 
     <button type="button" id="submitButton" style="color: white;">Save Circuit</button>
     <button type="button" id="loadCircuitBtn" onclick="loadCircuit()" style="color: white;">Load Circuit</button>
+    <button type="button" id="clearCircuitBtn" onclick="clearAllCells()" style="color: white;">Clear Circuit</button>
     <!--<button type="button" value="Save Circuit" onclick="saveCircuit" id="saveCircuitBtn" />-->
     </div>
 

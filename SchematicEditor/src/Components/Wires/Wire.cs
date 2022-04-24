@@ -12,9 +12,11 @@ namespace CircuitSharp.SchematicEditor.src.Components.Wires
     /// </summary>
     public class Wire : Component
     {
-        public Wire(int Position) : base(Position)
-        {
+        public WireTypeEnum Type { get; }
 
+        public Wire(WireTypeEnum Type, int Position) : base(Position)
+        {
+            this.Type = Type;
         }
     }
 }

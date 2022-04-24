@@ -28,12 +28,12 @@ namespace CircuitSharp.Controllers.API.Helpers
 
                 // Wire
                 case "1":
-                    return new Wire(Convert.ToInt32(position));
+                    return new Wire(WireTypeEnum.Normal, Convert.ToInt32(position));
 
                 // Wire Down To Left
                 case "2":
                     //return new Wire(Convert.ToInt32(position));
-                    throw new NotImplementedException();
+                    return new Wire(WireTypeEnum.DTL, Convert.ToInt32(position));
 
                 // Cell
                 case "3":
@@ -42,17 +42,17 @@ namespace CircuitSharp.Controllers.API.Helpers
                 // Wire Left To Down
                 case "4":
                     //return new Wire(Convert.ToInt32(position));
-                    throw new NotImplementedException();
+                    return new Wire(WireTypeEnum.LTD, Convert.ToInt32(position));
 
                 // Wire Up To Left
                 case "5":
                     //return new Wire(Convert.ToInt32(position));
-                    throw new NotImplementedException();
+                    return new Wire(WireTypeEnum.UTL, Convert.ToInt32(position));
 
                 // Wire Up To Right
                 case "6":
                     //return new Wire(Convert.ToInt32(position));
-                    throw new NotImplementedException();
+                    return new Wire(WireTypeEnum.UTR, Convert.ToInt32(position));
 
                 // Capacitor
                 case "7":

@@ -77,7 +77,20 @@ window.onload = () => {
             console.log("Appended to: " + parentID);
         }
         function getUserIP() {
-            $.get("https://api.ipify.org?format=json", successFunction);
+            $.get("https://api.ipify.org?format=json", (data) => {
+                let url = `http://localhost:8001/API/SetUserID`;
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        "userID": data.ip
+                    },
+                    success: () => {
+                        console.log("Successful POST to set userID");
+                    },
+                    dataType: "json"
+                });
+            });
         }
         function successFunction(data) {
             console.log("SUCCESS :D");
