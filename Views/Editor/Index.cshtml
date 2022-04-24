@@ -10,7 +10,7 @@
 -->
 <!DOCTYPE html>
 <html>
-<head>
+<head runat="server">
     <meta name="viewport" content="width=device-width" />
     <title>Editor</title>
     <link rel="import" href="Menu" />
@@ -75,6 +75,7 @@
             </tr>
         </table>
     </div>
+
     <div class="activeSchematicArea" id="activeSchematicArea">
         <table class="activeSchematicAreaTable" id="activeSchematicAreaTable">
             <tr class="activeSchematicAreaTableRow" id="activeSchematicAreaTableRow-0">
@@ -188,7 +189,89 @@
             </tr>
         </table>
 
-        <button type="button" id="submitButton" style="color: white;">Save Circuit</button>
+    <script type="text/javascript">
+        // Btn click handler
+        function loadCircuit() {
+            console.log("Attempting to load circuit");
+
+            let url = "http://localhost:8001/API/GetPersistenceFile";
+            let ip = $.get("https://api.ipify.org?format=json", (data) => {
+                console.log("IP: " + data.ip);
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {
+                        ip: data.ip
+                    },
+                    success: renderCircuit,
+                    dataType: "json"
+                });
+            });
+        }
+
+        function clearAllCells() {
+            console.log("Clearing cells");
+
+            // Table body
+            let schematicTable = document.getElementById("activeSchematicAreaTable").children;
+            let currentRow;
+            
+            // For every row
+            for (let i = 0; i < schematicTable[0].childElementCount; i++) {
+                currentRow = schematicTable[0].children[i];
+                console.log(currentRow.children.length);
+                for (let j = 0; j < currentRow.children.length; j++) {
+                    console.log("Removing: " + currentRow.children[j]);
+                    removeAllChildNodes(currentRow.children[j]);
+                }
+            }
+        }
+
+        // https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
+        function removeAllChildNodes(parent) {
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+        }
+}
+        function placeComponent(parentID, typeID) {
+            let parent = document.getElementById(parentID);
+            let element = document.createElement('img');
+            let url = `http://localhost:8001/Images/ComponentImage?TypeID=${typeID}`;
+
+            element.src = url;
+            element.style.zIndex = "999";
+
+            parent.appendChild(element);
+
+            //notifyControllerOfPlace(element);
+            //placedNum += 1;
+            console.log("Appended to: " + parentID);
+        }
+
+        function renderCircuit(data) {
+            let json = JSON.parse(data)["Cells"];
+            let cell;
+
+            // Clear all cells
+            clearAllCells();
+
+            // Iterate through the returned JSON
+            for (let i = 0; i < json.length; i++) {
+                console.log(json[i]);
+                if (json[i].TypeID != null) {
+                    cell = document.getElementById(json[i].ParentID);
+                    placeComponent(json[i].ParentID, json[i].TypeID);
+                }
+            }
+                // Whenever a typeID != null
+                // Draw that typeID in its accompanying parentID
+        }
+    </script>
+
+    <button type="button" id="submitButton" style="color: white;">Save Circuit</button>
+    <button type="button" id="loadCircuitBtn" onclick="loadCircuit()" style="color: white;">Load Circuit</button>
+    <!--<button type="button" value="Save Circuit" onclick="saveCircuit" id="saveCircuitBtn" />-->
     </div>
 
     @section Scripts {

@@ -76,18 +76,7 @@ window.onload = () => {
             placedNum += 1;
             console.log("Appended to: " + parentID);
         }
-        function getValueFromForm(form, key) {
-            let formData = new FormData(form);
-            return formData.get(key).toString();
-        }
         function getUserIP() {
-            /*$.getJSON("https://api.ipify.org?format=json")
-                .then((data): void => {
-                    return data.ip;
-                })
-                .catch((err): void => {
-                    console.log()
-                })*/
             $.get("https://api.ipify.org?format=json", successFunction);
         }
         function successFunction(data) {

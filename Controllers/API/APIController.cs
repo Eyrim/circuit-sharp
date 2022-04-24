@@ -91,5 +91,26 @@ namespace CircuitSharp.Controllers
 
             return StatusCode(200);
         }
+
+        // GET: API/GetPersistenceFile
+        [HttpGet]
+        public ActionResult GetPersistenceFile(string ip)
+        {
+            Console.WriteLine("USER IP: " + ip);
+
+            // Gets the path of that user's circuit
+            string path = Path.Combine(PersistenceFilePath, ip);
+            path += ".json";
+
+            // If it exists, load it into the Editor Model
+            if (System.IO.File.Exists(path))
+            {
+                Circuit circuit = FileHandling.DeserializeFromFile(path);
+
+                return base.Json(JsonConvert.SerializeObject(circuit));
+            }
+
+            return StatusCode(404);
+        }
     }
 }

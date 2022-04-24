@@ -94,20 +94,7 @@ window.onload = (): void => {
             console.log("Appended to: " + parentID);
         }
 
-        function getValueFromForm(form: HTMLFormElement, key: string): string {
-            let formData = new FormData(form);
-
-            return formData.get(key).toString();
-        }
-
         function getUserIP(): void {
-            /*$.getJSON("https://api.ipify.org?format=json")
-                .then((data): void => {
-                    return data.ip;
-                })
-                .catch((err): void => {
-                    console.log()
-                })*/
             $.get("https://api.ipify.org?format=json", successFunction);
         }
 
