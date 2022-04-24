@@ -28,7 +28,7 @@
             <button type="button" id="submitButton" class="util-button">Save Circuit</button>
             <button type="button" id="loadCircuitBtn" class="util-button" onclick="loadCircuit()">Load Circuit</button>
             <button type="button" id="clearCircuitBtn" class="util-button" onclick="clearAllCells()">Clear Circuit</button>
-            <!--<button type="button" value="Save Circuit" onclick="saveCircuit" id="saveCircuitBtn" />-->
+            <button type="button" id="deleteCircuitBtn" class="util-button" onclick="deleteCircuit()">Delete Circuit</button>
         </div>
 
         <table class="componentButtonTable" id="componentButtonTable">
@@ -204,7 +204,7 @@
                 console.log("Attempting to load circuit");
 
             let url = "http://localhost:8001/API/GetPersistenceFile";
-            let ip = $.get("https://api.ipify.org?format=json", (data) => {
+            $.get("https://api.ipify.org?format=json", (data) => {
                 $.ajax({
                     type: "GET",
                     url: url,
@@ -270,12 +270,23 @@
                     // Whenever a typeID != null
                     // Draw that typeID in its accompanying parentID
             }
-        </script>
 
-    <button type="button" id="submitButton" style="color: white;">Save Circuit</button>
-    <button type="button" id="loadCircuitBtn" onclick="loadCircuit()" style="color: white;">Load Circuit</button>
-    <button type="button" id="clearCircuitBtn" onclick="clearAllCells()" style="color: white;">Clear Circuit</button>
-    <!--<button type="button" value="Save Circuit" onclick="saveCircuit" id="saveCircuitBtn" />-->
+            function deleteCircuit() {
+                $.get("https://api.ipify.org?format=json", (data) => {
+                    let url = "http://localhost:8001/API/DeleteCircuit";
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            ip: data.ip
+                        },
+                        success: alert("Deleted Circuit"),
+                        dataType: "json"
+                    });
+                });
+            }
+        </script>
     </div>
 
     @section Scripts {
