@@ -1,0 +1,296 @@
+﻿@model CircuitSharp.Models.EditorModel
+@using CircuitSharp.Util.CSV;
+
+@{
+    Layout = null;
+}
+
+<!--
+    EDITOR INDEX PAGE
+-->
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta name="viewport" content="width=device-width" />
+    <title>Editor</title>
+    <link rel="import" href="Menu" />
+    <link rel="stylesheet" href="~/css/home-editor.css"/>
+
+    <!--<script data-main="/js/Editor/GhostHandlerTS" src="~/lib/require.js"></script>-->
+
+    <script data-main="~/js/Editor/GhostHandlerTS" src="~/lib/fallback/fallback.js"></script>
+    <script type="text/javascript" src="~/js/Editor/GhostHandlerTS.js"></script>
+</head>
+
+<body style="background-image: url('http://localhost:8001/Images/BackgroundImage?ID=1');">
+    <div class="componentButtonContainer">
+        <div class="util-button-container">
+            <button type="button" id="submitButton" class="util-button">Save Circuit</button>
+            <button type="button" id="loadCircuitBtn" class="util-button" onclick="loadCircuit()">Load Circuit</button>
+            <button type="button" id="clearCircuitBtn" class="util-button" onclick="clearAllCells()">Clear Circuit</button>
+            <button type="button" id="deleteCircuitBtn" class="util-button" onclick="deleteCircuit()">Delete Circuit</button>
+        </div>
+
+        <table class="componentButtonTable" id="componentButtonTable">
+            <tr class="componentButtonTableRow" id="componentButtonTableRow-0">
+                <td class="componentButtonTableData" id="componentButtonTableData-0-0">
+                    <button type="button" class="componentButton">
+                        <img src="http://localhost:8001/Images/ComponentImage?TypeID=0" alt="" id="component-0"/>
+                    </button>
+                </td>
+                <td class="componentButtonTableData" id="componentButtonTableData-0-1">
+                    <button type="button" class="componentButton">
+                        <img src="http://localhost:8001/Images/ComponentImage?TypeID=1" alt="" id="component-1"/>
+                    </button>
+                </td>
+            </tr>
+            <tr class="componentButtonTableRow" id="componentButtonTableRow-1">
+                <td class="componentButtonTableData" id="componentButtonTableData-1-0">
+                    <button type="button" class="componentButton">
+                        <img src="http://localhost:8001/Images/ComponentImage?TypeID=2" alt="" id="component-2"/>
+                    </button>
+                </td>
+                <td class="componentButtonTableData" id="componentButtonTableData-1-1">
+                    <button type="button" class="componentButton" >
+                        <img src="http://localhost:8001/Images/ComponentImage?TypeID=3" alt="" id="component-3"/>
+                    </button>
+                </td>
+            </tr>
+            <tr class="componentButtonTableRow" id="componentButtonTableRow-2">
+                <td class="componentButtonTableData" id="componentButtonTableData-2-0">
+                    <button type="button" class="componentButton">
+                        <img src="http://localhost:8001/Images/ComponentImage?TypeID=4" alt="" id="component-4" />
+                    </button>
+                </td>
+                <td class="componentButtonTableData" id="componentButtonTableData-2-0">
+                    <button type="button" class="componentButton">
+                        <img src="http://localhost:8001/Images/ComponentImage?TypeID=5" alt="" id="component-5" />
+                    </button>
+                </td>
+            </tr>
+            <tr class="componentButtonTableRow" id="componentButtonTableRow-2">
+                <td class="componentButtonTableData" id="componentButtonTableData-2-0">
+                    <button type="button" class="componentButton">
+                        <img src="http://localhost:8001/Images/ComponentImage?TypeID=6" alt="" id="component-6" />
+                    </button>
+                </td>
+                <td class="componentButtonTableData" id="componentButtonTableData-2-0">
+                    <button type="button" class="componentButton">
+                        <img src="http://localhost:8001/Images/ComponentImage?TypeID=7" alt="" id="component-7" />
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="activeSchematicArea" id="activeSchematicArea">
+        <table class="activeSchematicAreaTable" id="activeSchematicAreaTable">
+            <tr class="activeSchematicAreaTableRow" id="activeSchematicAreaTableRow-0">
+                <td class="activeSchematicAreaTableData" id="0">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="1">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="2">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="3">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="4">
+
+                </td>
+            </tr>
+
+            <tr class="activeSchematicAreaTableRow" id="activeSchematicAreaTableRow-1">
+                <td class="activeSchematicAreaTableData" id="5">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="6">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="7">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="8">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="9">
+
+                </td>
+            </tr>
+
+            <tr class="activeSchematicAreaTableRow" id="activeSchematicAreaTableRow-2">
+                <td class="activeSchematicAreaTableData" id="10">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="11">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="12">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="13">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="14">
+
+                </td>
+            </tr>
+
+            <tr class="activeSchematicAreaTableRow" id="activeSchematicAreaTableRow-3">
+                <td class="activeSchematicAreaTableData" id="15">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="16">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="17">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="18">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="19">
+
+                </td>
+            </tr>
+
+            <tr class="activeSchematicAreaTableRow" id="activeSchematicAreaTableRow-4">
+                <td class="activeSchematicAreaTableData" id="20">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="21">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="22">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="23">
+
+                </td>
+
+                <td class="activeSchematicAreaTableData" id="24">
+
+                </td>
+            </tr>
+        </table>
+
+        <script type="text/javascript">
+            let placedNum = 0;
+
+            // Btn click handler
+            function loadCircuit() {
+                console.log("Attempting to load circuit");
+
+            let url = "http://localhost:8001/API/GetPersistenceFile";
+            $.get("https://api.ipify.org?format=json", (data) => {
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {
+                        ip: data.ip
+                    },
+                    success: renderCircuit,
+                    dataType: "json"
+                });
+            });
+        }
+
+            function clearAllCells() {
+                // Table body
+                let schematicTable = document.getElementById("activeSchematicAreaTable").children;
+                let currentRow;
+            
+                // For every row
+                for (let i = 0; i < schematicTable[0].childElementCount; i++) {
+                    currentRow = schematicTable[0].children[i];
+                    for (let j = 0; j < currentRow.children.length; j++) {
+                        removeAllChildNodes(currentRow.children[j]);
+                    }
+                }
+            }
+
+            // https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
+            function removeAllChildNodes(parent) {
+                while (parent.firstChild) {
+                    parent.removeChild(parent.firstChild);
+                }
+            }
+
+            function placeComponent(parentID, typeID) {
+                let parent = document.getElementById(parentID);
+                let element = document.createElement('img');
+                let url = `http://localhost:8001/Images/ComponentImage?TypeID=${typeID}`;
+
+                element.src = url;
+                element.id = "PlacedComponent-" + placedNum;
+                element.style.zIndex = "999";
+
+                parent.appendChild(element);
+
+                //notifyControllerOfPlace(element);
+                placedNum += 1;
+            }
+
+            function renderCircuit(data) {
+                let json = JSON.parse(data)["Cells"];
+                let cell;
+
+                // Clear all cells
+                clearAllCells();
+
+                // Iterate through the returned JSON
+                for (let i = 0; i < json.length; i++) {
+                    if (json[i].TypeID != null) {
+                        cell = document.getElementById(json[i].ParentID);
+                        placeComponent(json[i].ParentID, json[i].TypeID);
+                    }
+                }
+                    // Whenever a typeID != null
+                    // Draw that typeID in its accompanying parentID
+            }
+
+            function deleteCircuit() {
+                $.get("https://api.ipify.org?format=json", (data) => {
+                    let url = "http://localhost:8001/API/DeleteCircuit";
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            ip: data.ip
+                        },
+                        success: alert("Deleted Circuit"),
+                        dataType: "json"
+                    });
+                });
+            }
+        </script>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>

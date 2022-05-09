@@ -17,6 +17,11 @@ namespace CircuitSharp.Controllers
             return View();
         }
 
+        public ActionResult EditorPage() 
+        {
+            return View();
+        }
+
         // GET: Editor/GetImgUrlFromTypeID?TypeID=
         [HttpGet]
         public ActionResult GetImgUrlFromTypeID(string TypeID)
@@ -26,6 +31,11 @@ namespace CircuitSharp.Controllers
             string path = Path.Combine(dir, TypeID + ".png");
 
             return base.File(path, "image/png");
+        }
+
+        protected void btnRedirect_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditorPage.cshtml");
         }
     }
 }
