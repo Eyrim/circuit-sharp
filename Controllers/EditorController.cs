@@ -17,7 +17,12 @@ namespace CircuitSharp.Controllers
             return View();
         }
 
-        public ActionResult EditorPage() 
+        public ActionResult OhmsLaw() 
+        {
+            return View();
+        }
+
+        public ActionResult ImpedenceLPF() 
         {
             return View();
         }

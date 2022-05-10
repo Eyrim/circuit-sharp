@@ -1,0 +1,49 @@
+﻿@{
+    @using System.Web;
+    ViewData["Title"] = "Editor Home";
+}
+
+<!--
+
+***** EDITOR INDEX *****
+
+-->
+
+<head>
+    <link rel="stylesheet" href="wwwroot\css\editor-Calc.css" />
+    <script data-main="~/js/Editor/OhmsHandler.js" src="~/lib/fallback/fallback.js"></script>
+    <script type="text/javascript" src="~/js/Editor/OhmsHandler.js"></script>
+</head>
+
+<body lang="en-gb">
+    <form action="#" id="ohmsLawForm" class="ohmsLawForm">
+      <span class="inpLabel">Voltage:</span> <input type="text" name="voltage"><br><br>
+      <span class="inpLabel">Current:</span> <input type="text" name="current"><br><br>
+      <span class="inpLabel">Resistance:</span> <input type="text" name="resistance"><br><br>
+      <button class="submitBtn" id="calculateBtn">
+      Submit
+      </button>
+    
+    <br><br>
+    <hr>
+    
+    <table id="valueDisplayTable">
+      <tr>
+        <th>Voltage</th>
+        <th>Current</th>
+        <th>Resistance</th>
+      </tr>
+      <tr>
+        <td id="voltageDisplay"></td>
+        <td id="currentDisplay"></td>
+        <td id="resistanceDisplay"></td>
+      </tr>
+    </table>
+
+    <br><br><br><br>
+
+    <button id="gotoEditor">
+        Go To Editor
+    </button>
+    </form>
+</body>

@@ -1,0 +1,45 @@
+@{
+    @using System.Web;
+    ViewData["Title"] = "Editor Home";
+}
+
+<!--
+
+***** EDITOR INDEX *****
+
+-->
+
+<head>
+    <link rel="stylesheet" href="wwwroot\css\editor-Calc.css" />
+    <script data-main="~/js/Editor/ImpedenceLPFHandler.js" src="~/lib/fallback/fallback.js"></script>
+    <script type="text/javascript" src="~/js/Editor/ImpedenceLPFHandler.js"></script>
+</head>
+
+<body lang="en-gb">
+    <form action="#" id="ohmsLawForm" class="ohmsLawForm">
+      <span class="inpLabel">Resistance:</span> <input type="text" name="resistance"><br><br>
+      <span class="inpLabel">Frequency:</span> <input type="text" name="frequency"><br><br>
+      <span class="inpLabel">Capacitance:</span> <input type="text" name="capacitance"><br><br>
+      <button class="submitBtn" id="calculateBtn">
+      Submit
+      </button>
+    
+    <br><br>
+    <hr>
+    
+    <table id="valueDisplayTable">
+      <tr>
+        <th>Impedance</th>
+      </tr>
+      <tr>
+        <td id="impedanceDisplay"></td>
+      </tr>
+    </table>
+
+    <br><br><br><br>
+
+    <button id="gotoEditor">
+        Go To Editor
+    </button>
+    </form>
+</body>

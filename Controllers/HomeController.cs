@@ -22,6 +22,8 @@ namespace CircuitSharp.Controllers
 
         public IActionResult Index()
         {
+            int testVar = 0;
+
             return View();
         }
 

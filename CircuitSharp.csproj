@@ -13,6 +13,10 @@
     <None Remove="PHP\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="output.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="output.json" />
     <None Include="wwwroot\GenericData\Imgs\genericResistor.png" />
     <None Include="wwwroot\GenericData\Imgs\wire.png" />
     <None Include="wwwroot\GenericData\Imgs\staticResistor.psd" />

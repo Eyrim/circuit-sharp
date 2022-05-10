@@ -152,6 +152,24 @@ namespace CircuitSharp.Controllers
                                         {
                                             Electron.WindowManager.BrowserWindows.First().LoadURL($"http://localhost:{BridgeSettings.WebPort}/Editor/");
                                         }
+                                    },
+
+                                    new MenuItem
+                                    {
+                                        Label = "Ohm's Law",
+                                        Click = () => 
+                                        {
+                                            Electron.WindowManager.BrowserWindows.First().LoadURL($"http://localhost:{BridgeSettings.WebPort}/Editor/OhmsLaw");
+                                        }
+                                    },
+
+                                    new MenuItem
+                                    {
+                                        Label = "Impedance of LPF",
+                                        Click = () => 
+                                        {
+                                            Electron.WindowManager.BrowserWindows.First().LoadURL($"http://localhost:{BridgeSettings.WebPort}/Editor/ImpedenceLPF");
+                                        }
                                     }
                                 }
                             }

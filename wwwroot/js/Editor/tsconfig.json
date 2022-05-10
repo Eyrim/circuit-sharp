@@ -5,6 +5,7 @@
     },
     "files": [
       "GhostHandlerTS.ts",
-      "OhmsHandler.ts"
+      "OhmsHandler.ts",
+      "ImpedenceLPFHandler.ts"
     ]
   }
