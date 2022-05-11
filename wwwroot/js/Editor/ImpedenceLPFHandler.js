@@ -42,7 +42,9 @@ fallback.ready(['jQuery'], (jQuery) => {
                 console.log(impedenceData.impedance);
             }
             function displayValues(imped) {
-                $("#impedanceDisplay").text(imped);
+                if (imped != Infinity) {
+                    $("#impedanceDisplay").text(imped);
+                }
             }
         });
     });

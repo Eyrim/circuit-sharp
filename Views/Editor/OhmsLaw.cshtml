@@ -17,13 +17,10 @@
 
 <body lang="en-gb">
     <form action="#" id="ohmsLawForm" class="ohmsLawForm">
-      <span class="inpLabel">Voltage:</span> <input type="text" name="voltage"><br><br>
-      <span class="inpLabel">Current:</span> <input type="text" name="current"><br><br>
-      <span class="inpLabel">Resistance:</span> <input type="text" name="resistance"><br><br>
-      <button class="submitBtn" id="calculateBtn">
-      Submit
-      </button>
-    
+      <span class="inpLabel">Voltage:</span> <input type="number" name="voltage"><br><br>
+      <span class="inpLabel">Current:</span> <input type="number" name="current"><br><br>
+      <span class="inpLabel">Resistance:</span> <input type="number" name="resistance"><br><br>
+      
     <br><br>
     <hr>
     
@@ -40,10 +37,14 @@
       </tr>
     </table>
 
-    <br><br><br><br>
+    
+    </form>
 
+    <button class="submitBtn" id="calculateBtn">
+      Submit
+    </button>
+    <br><br>
     <button id="gotoEditor">
         Go To Editor
     </button>
-    </form>
 </body>

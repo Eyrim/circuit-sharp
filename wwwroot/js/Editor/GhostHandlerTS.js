@@ -13,6 +13,10 @@ window.onload = () => {
         let typeID = "";
         let placedNum = 0;
         let value = 0;
+        $(document).ready(() => {
+            console.log("setIP");
+            getUserIP();
+        });
         main();
         function main() {
             attachComponentAreaHandlers();
@@ -38,12 +42,40 @@ window.onload = () => {
             console.log("Attaching Schematic Area Handlers");
             // Attaches schematicArea listeners
             for (let i = 0; i <= 24; i++) {
-                document.getElementById(String(i)).addEventListener("mousedown", mouseDownHandler); //TODO: REFACTOR TO jQUERY
+                //document.getElementById(String(i)).addEventListener("mousedown", mouseDownHandler); //TODO: REFACTOR TO jQUERY
+                $("#" + String(i)).mousedown(mouseDownHandler);
+                //document.getElementById(String(i)).addEventListener("dbclick", dbClickHandler); //TODO: REFACTOR TO jQUERY
             }
+        }
+        function rightClickHandler(event) {
+            event.stopPropagation();
+            if (event.target.tagName.toLowerCase() == "img") {
+                return;
+            }
+            removePlacedFromID(event.target.id);
+            notifyControllerOfRemoval(event.target.id);
+        }
+        function notifyControllerOfRemoval(cellRemovedFromID) {
+            let url = `http://localhost:8001/API/RemoveComponent`;
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    "removedFrom": cellRemovedFromID
+                },
+                success: () => {
+                    console.log("Successful POST to remove component");
+                },
+                dataType: "json"
+            });
         }
         function mouseDownHandler(event) {
             console.log(event);
             if (event.target.tagName.toLowerCase() == "img") {
+                return;
+            }
+            if (event.which == 3) {
+                rightClickHandler(event);
                 return;
             }
             console.log("Clicked on: " + event.target.id);

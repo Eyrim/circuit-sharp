@@ -43,9 +43,9 @@ fallback.ready(['jQuery'], (jQuery): void => {
                 if (data.voltage != "" && data.current != "") {
                     ohmsData.resistance = calculateResistance(data.voltage, data.current);
                 } else if (data.current != "" && data.resistance != "") {
-                    ohmsData.current = calculateVoltage(data.current, data.resistance);
+                    ohmsData.voltage = calculateVoltage(data.current, data.resistance);
                 } else if (data.voltage != "" && data.resistance != "") {
-                    ohmsData.voltage = calculateCurrent(data.voltage, data.resistance);
+                    ohmsData.current = calculateCurrent(data.voltage, data.resistance);
                 }
 
                 displayValues(ohmsData.resistance, ohmsData.voltage, ohmsData.current);

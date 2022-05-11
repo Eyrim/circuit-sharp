@@ -16,6 +16,11 @@ window.onload = (): void => {
         let placedNum: number = 0;
         let value: number = 0;
 
+        $(document).ready((): void => {
+            console.log("setIP");
+            getUserIP();
+        })
+
         main();
 
         function main(): void {
@@ -48,13 +53,44 @@ window.onload = (): void => {
             console.log("Attaching Schematic Area Handlers");
             // Attaches schematicArea listeners
             for (let i:number = 0; i <= 24; i++) {
-                document.getElementById(String(i)).addEventListener("mousedown", mouseDownHandler); //TODO: REFACTOR TO jQUERY
+                //document.getElementById(String(i)).addEventListener("mousedown", mouseDownHandler); //TODO: REFACTOR TO jQUERY
+                $("#" + String(i)).mousedown(mouseDownHandler);
+                //document.getElementById(String(i)).addEventListener("dbclick", dbClickHandler); //TODO: REFACTOR TO jQUERY
             }
+        }
+
+        function rightClickHandler(event: any): void {
+            event.stopPropagation();
+            if (event.target.tagName.toLowerCase() == "img") { return; }
+
+            removePlacedFromID(event.target.id);
+            notifyControllerOfRemoval(event.target.id);
+        }
+
+        function notifyControllerOfRemoval(cellRemovedFromID: string): void {
+            let url: string = `http://localhost:8001/API/RemoveComponent`;
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    "removedFrom": cellRemovedFromID
+                },
+                success: (): void => {
+                    console.log("Successful POST to remove component");
+                },
+                dataType: "json"
+            });
         }
 
         function mouseDownHandler(event: any): void {
             console.log(event);
             if (event.target.tagName.toLowerCase() == "img") { return; }
+            if (event.which == 3) {
+                rightClickHandler(event);
+
+                return;
+            }
 
             console.log("Clicked on: " + event.target.id);
             console.log("TypeID: " + typeID);

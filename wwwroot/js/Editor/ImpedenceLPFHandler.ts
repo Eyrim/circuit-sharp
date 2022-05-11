@@ -51,7 +51,9 @@ fallback.ready(['jQuery'], (jQuery): void => {
             }
 
             function displayValues(imped: number): void {
-                $("#impedanceDisplay").text(imped);
+                if (imped != Infinity) {
+                    $("#impedanceDisplay").text(imped);
+                }
             }
         })
     })

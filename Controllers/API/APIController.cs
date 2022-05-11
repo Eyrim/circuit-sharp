@@ -18,7 +18,7 @@ namespace CircuitSharp.Controllers
     public class APIController : Controller
     {
         private static List<Cell> ModifiedCells { get; set; }
-        private const string PersistenceFilePath = @"Persistence/";
+        private const string PersistenceFilePath = @"C:\Users\gamin\Desktop\circuit-sharp-fixed\circuit-sharp\Persistence\";
 
         public static string GetPersistenceFilePath()
         {
@@ -72,9 +72,12 @@ namespace CircuitSharp.Controllers
             // Gets the path of that user's circuit
             string path = Path.Combine(PersistenceFilePath, EditorModel.UserID);
             path += ".json";
+            Console.WriteLine("AAAAAAAAAAAAAAAAAA" + path);
+
+            bool exists = System.IO.File.Exists(path);
 
             // If the user has never saved a circuit before
-            if (!(System.IO.File.Exists(path)))
+            if (!exists)
             {
                 // Creates the file
                 FileStream file = System.IO.File.Create(path);
@@ -134,6 +137,22 @@ namespace CircuitSharp.Controllers
             }
 
             return StatusCode(404);
+        }
+
+        public ActionResult RemoveComponent(string removedFrom)
+        {
+            if (EditorModel.Circuit == null) 
+            { 
+                EditorModel.Circuit = new Circuit();
+                EditorModel.Circuit.PopulateCircuitCells();
+            }
+
+            EditorModel.Circuit.Cells[Convert.ToInt32(removedFrom)].TypeID = null;
+            EditorModel.Circuit.Cells[Convert.ToInt32(removedFrom)].Value = null;
+
+            ModifiedCells.Add(new Cell(removedFrom, null, null));
+
+            return StatusCode(200);
         }
     }
 }
